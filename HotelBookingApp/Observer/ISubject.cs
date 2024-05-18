@@ -12,8 +12,7 @@ namespace HotelBookingApp.Observer
 
         void Unsubscribe(IObserver observer);
 
-        void Subscribe(IObserver observer);
-        
+        void Subscribe(IObserver observer);  
         
     }
 }

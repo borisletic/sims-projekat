@@ -24,145 +24,117 @@ namespace HotelBookingApp.Model
         public bool Accepted { get; set; }
         public int Id
         {
-
             get { return _id; }
+
             set
             {
 
                 if (value != 0)
-
                 {
                     _id = value;
                 }
-
             }
-
         }
         public string Code
         {
-
             get { return _code; }
+
             set
 
             {
                 if (value != null)
-
                 {
                     _code = value;
                 }
             }
-
         }
         public string Name
         {
-
             get { return _name; }
 
             set
-
             {
                 if (value != null)
-
                 {
                     _name = value;
                 }
             }
-
         }
 
         public Dictionary<int, Apartment> Apartments
         {
-
             get { return _apartments; }
-            set
 
+            set
             {
                 if(value != null)
-
                 {
                     _apartments = value;
                 }
             }
-
         }
+
         public int ConstructionYear
         {
-
             get { return _constructionYear; }
 
             set
-
             {
                 if (value != 0)
-
                 {
                     _constructionYear = value;
                 }
             }
-
         }
         public int StarsNumber
         {
-
             get { return _starsNumber; }
 
             set
-
             {
                 if(value != 0)
-
                 {
                     _starsNumber = value;
                 }
             }
-
         }
 
         public string JmbgOwner
         {
-
             get { return _jmbgOwner; }
 
             set
-
             {
                 if (value != null)
-
                 {
                     _jmbgOwner = value;
                 }
-
             }
-
         }
         public int OwnerId
         {
             get => _ownerId;
-            set
 
+            set
             {
                 if (value != _ownerId)
-
                 {
                     _ownerId = value;
                 }
             }
-
         }
 
         public Owner Owner
         {
             get => _owner;
-            set
 
+            set
             {
                 if (value != _owner)
-
                 {
                     _owner = value;
                 }
             }
-
         }
         public Hotel(int id, string code, string name, Dictionary<int, Apartment> apartments, int constructionYear, int starsNumber, string jmbgOwner, int ownerId, Owner owner)
         {
@@ -198,7 +170,6 @@ namespace HotelBookingApp.Model
         }
         public virtual void FromCSV(string[] values)
         {
-
             Id = Convert.ToInt32(values[0]);
             Code = values[1];
             Name = values[2];
@@ -207,7 +178,6 @@ namespace HotelBookingApp.Model
             JmbgOwner = values[5];
             OwnerId = Convert.ToInt32(values[6]);
             Accepted = Convert.ToBoolean(values[7]);
-
         }
     }
 }

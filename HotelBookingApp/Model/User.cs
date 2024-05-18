@@ -23,114 +23,90 @@ namespace HotelBookingApp.Model
         public bool Blocked { get; set; }
         public int Id
         {
-
             get { return _id; }
 
             set
             {
                 if (value != 0)
-
                 {
                     _id = value;
                 }
             }
-
         }
         public string Jmbg
         {
-
             get { return _jmbg; }
 
             set
-
             {
                 if (value != null)
-
                 {
                     _jmbg = value;
                 }
             }
-
         }
         public string Email
         {
-
             get { return _email; }
 
             set
             {
                 if (value != null)
-
                 {
                     _email = value;
                 }
             }
-
         }
         public string Password
         {
-
             get { return _password; }
 
             set
             {
                 if (value != null)
-
                 {
                     _password = value;
                 }
             }
-
         }
         public string Name
         {
-
             get { return _name; }
 
             set
             {
                 if (value != null)
-
                 {
                     _name = value;
                 }
             }
-
         }
         public string Surname
         {
-
             get { return _surname; }
 
             set
             {
                 if (value != null)
-
                 {
                     _surname = value;
                 }
             }
-
         }
 
         public string PhoneNumber
         {
-
             get { return _phoneNumber; }
-
             set
             {
                 if (value != null)
-
                 {
                     _phoneNumber = value;
                 }
             }
-
         }
         public User(int id, string jmbg, string email, string password, string name, string surname, string phoneNumber)
         {
-
             Id = id;
             Jmbg = jmbg;
             Email = email;
@@ -138,7 +114,6 @@ namespace HotelBookingApp.Model
             Name = name;
             Surname = surname;
             PhoneNumber = phoneNumber;
-
         }
 
         public User()
@@ -148,7 +123,6 @@ namespace HotelBookingApp.Model
 
         public virtual string[] ToCSV()
         {
-
             string[] csvValues =
             {
                 Id.ToString(),
@@ -161,12 +135,10 @@ namespace HotelBookingApp.Model
                 Blocked.ToString()
             };
             return csvValues;
-
         }
 
         public virtual void FromCSV(string[] values)
         {
-
             Id = Convert.ToInt32(values[0]);
             Jmbg = values[1];
             Email = values[2];
@@ -175,8 +147,6 @@ namespace HotelBookingApp.Model
             Surname = values[5];
             PhoneNumber = values[6];
             Blocked = bool.Parse(values[7]);
-
         }
-
     }
 }
