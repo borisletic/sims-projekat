@@ -28,7 +28,7 @@ namespace HotelBookingApp.View
         public string JMBG { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string ApartmentName { get; set; }
+        public string NameO { get; set; }
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
 
@@ -48,7 +48,7 @@ namespace HotelBookingApp.View
                 Jmbg = JMBG,
                 Email = Email,
                 Password = Password,
-                Name = ApartmentName,
+                Name = NameO,
                 Surname = Surname,
                 PhoneNumber = PhoneNumber
             };

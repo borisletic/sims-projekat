@@ -123,7 +123,7 @@
                    
                     <Binding.ValidationRules>
                        
-                        <val:IntegerValidation ValidationStep="RawProposedValue"/>
+                        
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
                    
                     </Binding.ValidationRules>
@@ -168,7 +168,7 @@
            
             <TextBox.Text>
                
-                <Binding Path="NameA" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                <Binding Path="NameO" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
                   
                     <Binding.ValidationRules>
                        

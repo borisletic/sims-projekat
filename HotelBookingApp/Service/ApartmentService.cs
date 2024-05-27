@@ -2,6 +2,7 @@
 using HotelBookingApp.Repository;
 using HotelBookingApp.RepositoryInterfaces;
 using HotelBookingApp.ServiceInterfaces;
+using System;
 using System.Collections.Generic;
 
 
@@ -21,12 +22,31 @@ namespace HotelBookingApp.Service
 
         public void BindHotel()
         {
-            foreach(var a in GetAll())
+            ///foreach(var a in GetAll())
+            ///{
+            ///Hotel hotel = hotelRepository.Get(a.HotelId);
+            ///a.Hotel = hotel;
+
+            ///hotel.Apartments.Add(a.Id, a);
+            ///}
+            foreach (var a in GetAll())
             {
                 Hotel hotel = hotelRepository.Get(a.HotelId);
                 a.Hotel = hotel;
 
-                hotel.Apartments.Add(a.Id, a);
+                // Check if the key already exists before adding
+                if (!hotel.Apartments.ContainsKey(a.Id))
+                {
+                    hotel.Apartments.Add(a.Id, a);
+                }
+                else
+                {
+                    // Handle the case where the key already exists
+                    // For example, log a warning or update the existing value
+                    Console.WriteLine($"Duplicate key detected: {a.Id}");
+                    // Optionally update existing entry
+                    // hotel.Apartments[a.Id] = a;
+                }
             }
         }
         

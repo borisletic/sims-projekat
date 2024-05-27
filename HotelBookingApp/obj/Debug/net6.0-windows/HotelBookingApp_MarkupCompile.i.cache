@@ -16,5 +16,5 @@ C:\Users\boris\sims-projekat\HotelBookingApp\App.xaml
 194750953030
 MainWindow.xaml;View\AllUsersView.xaml;View\ApartmentEnterView.xaml;View\ApartmentFilterCondition.xaml;View\ApproveReservationView.xaml;View\HotelApprovalTableView.xaml;View\HotelApprovalView.xaml;View\HotelCreateView.xaml;View\HotelView.xaml;View\OwnerCreateView.xaml;View\ReservationApartmentView.xaml;View\ReservationsForOwner.xaml;View\ReservationShowView.xaml;
 
-False
+True
 
