@@ -26,14 +26,7 @@ namespace HotelBookingApp.View
             reservationController = new ReservationController();
         }
 
-        public void Update()
-        {
-            ReservationsForOwner.Reservations.Clear();
-            foreach (Reservation reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
-            {
-                ReservationsForOwner.Reservations.Add(reservation);
-            }
-        }
+        
 
         private void ApproveReservation(object sender, RoutedEventArgs e)
         {
@@ -57,6 +50,16 @@ namespace HotelBookingApp.View
             Update();
 
             this.Close();
+        }
+
+        public void Update()
+        {
+            ReservationsForOwner.Reservations.Clear();
+
+            foreach (Reservation reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
+            {
+                ReservationsForOwner.Reservations.Add(reservation);
+            }
         }
     }
 }

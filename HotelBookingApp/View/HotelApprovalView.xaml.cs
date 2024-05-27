@@ -26,6 +26,16 @@ namespace HotelBookingApp.View
             hotelController = new HotelController();
         }
 
+        private void RejectHotel(object sender, RoutedEventArgs e)
+        {
+            hotelController.Delete(SelectedHotel);
+
+            MessageBox.Show("Your hotel has been rejected", "Hotels");
+            HotelApprovalTableView.Hotels.Remove(SelectedHotel);
+
+            Close();
+        }
+
         private void ApproveHotel(object sender, RoutedEventArgs e)
         {
             SelectedHotel.Accepted = true;
@@ -38,14 +48,6 @@ namespace HotelBookingApp.View
             Close();
         }
 
-        private void RejectHotel(object sender, RoutedEventArgs e)
-        {
-            hotelController.Delete(SelectedHotel);
-
-            MessageBox.Show("Your hotel has been rejected", "Hotels");
-            HotelApprovalTableView.Hotels.Remove(SelectedHotel);
-
-            Close();
-        }
+        
     }
 }

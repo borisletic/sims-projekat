@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:HotelBookingApp.View"
         mc:Ignorable="d"
         Title="Reservation Apartment" Height="250" Width="300">
+    
     <Grid>
+        
         <DatePicker x:Name="StartDatePicker" Height="26"  Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,78,0,0" SelectedDate="{Binding StartlDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:dd/MM/yyyy}'}" SelectedDateFormat="Short"></DatePicker>
         <TextBlock HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" Text="Select date" VerticalAlignment="Top" Height="20" Width="72"/>
         <Button Click="MakeReservation" Content="Reserve" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
+    
     </Grid>
+    
 </Window>

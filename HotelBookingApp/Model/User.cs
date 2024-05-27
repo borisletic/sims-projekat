@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 
 namespace HotelBookingApp.Model
 {
     public class User : HotelBookingApp.Serializer.ISerializable
-    {
-        private Regex EmailRegex = new Regex(".+[@]");
-        private Regex NumberOfJmbgRegex = new Regex("[0-9]{13}");
-        private Regex PhoneNumberRegex = new Regex("[0-9]{10}");
-
+    {        
         private int id;
         private string jmbg;
         private string email;
@@ -17,6 +12,7 @@ namespace HotelBookingApp.Model
         private string name;
         private string surname;
         private string phoneNumber;
+
         public bool Blocked { get; set; }
         public int Id
         {
@@ -42,30 +38,7 @@ namespace HotelBookingApp.Model
                 }
             }
         }
-        public string Email
-        {
-            get { return email; }
 
-            set
-            {
-                if (value != null)
-                {
-                    email = value;
-                }
-            }
-        }
-        public string Password
-        {
-            get { return password; }
-
-            set
-            {
-                if (value != null)
-                {
-                    password = value;
-                }
-            }
-        }
         public string Name
         {
             get { return name; }
@@ -94,6 +67,7 @@ namespace HotelBookingApp.Model
         public string PhoneNumber
         {
             get { return phoneNumber; }
+
             set
             {
                 if (value != null)
@@ -102,6 +76,39 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+
+        public string Email
+        {
+            get { return email; }
+
+            set
+            {
+                if (value != null)
+                {
+                    email = value;
+                }
+            }
+        }
+        public string Password
+        {
+            get { return password; }
+
+            set
+            {
+                if (value != null)
+                {
+                    password = value;
+                }
+            }
+        }
+
+        public User()
+        {
+
+        }
+
+
         public User(int id, string jmbg, string email, string password, string name, string surname, string phoneNumber)
         {
             Id = id;
@@ -113,10 +120,6 @@ namespace HotelBookingApp.Model
             PhoneNumber = phoneNumber;
         }
 
-        public User()
-        {
-
-        }
 
         public virtual string[] ToCSV()
         {

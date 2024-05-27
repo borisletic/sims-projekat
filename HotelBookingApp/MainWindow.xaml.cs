@@ -25,6 +25,7 @@ namespace HotelBookingApp
         public MainWindow()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             
@@ -33,34 +34,6 @@ namespace HotelBookingApp
             _administratorController = new AdministratorController();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        }
-
-        private void ApartmentView(object sender, RoutedEventArgs e)
-        {
-            Guest guest = GuestRepository.GetInstance().Get(0);
-        }
-
-        private void HotelView(object sender, RoutedEventArgs e)
-        {
-            Guest g = GuestRepository.GetInstance().Get(0);
-
-            HotelView hv = new HotelView(g);
-
-            hv.Show();
-        }
-
-        private bool ValidatePassword(string password)
-        {
-            return password.Length >= 3;
-        }
-
-        bool ValidateEmail(string email)
-        {
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
-
-            Regex regex = new Regex(pattern);
-
-            return regex.IsMatch(email);
         }
 
         private void LogIn(object sender, RoutedEventArgs e)
@@ -155,6 +128,34 @@ namespace HotelBookingApp
                     return;
                 }
             }
+        }
+
+        private void ApartmentView(object sender, RoutedEventArgs e)
+        {
+            Guest guest = GuestRepository.GetInstance().Get(0);
+        }
+
+        private void HotelView(object sender, RoutedEventArgs e)
+        {
+            Guest guest = GuestRepository.GetInstance().Get(0);
+
+            HotelView hv = new HotelView(guest);
+
+            hv.Show();
+        }
+
+        private bool ValidatePassword(string password)
+        {
+            return password.Length >= 3;
+        }
+
+        bool ValidateEmail(string email)
+        {
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+
+            Regex regex = new Regex(pattern);
+
+            return regex.IsMatch(email);
         }
 
 

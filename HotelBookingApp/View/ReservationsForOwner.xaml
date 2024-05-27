@@ -7,26 +7,35 @@
         xmlns:val="clr-namespace:HotelBookingApp.Validation"
         mc:Ignorable="d"
         Title="Reservations" Height="450" Width="800">
+    
     <Grid>
+        
         <WrapPanel  Margin="94,22,86,365" DockPanel.Dock="Top">
+            
             <ComboBox x:Name="myTextBox" Width="130" Height="22" ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}"/>
             <Button Content="Search" Click="Filter" Width="50" Margin="8,0,0,0"/>
             <Button Click="Clear" Content="Clear" Margin="8,0,0,0" Height="22" Width="50"/>
             <TextBlock Margin="08,25,8,0" x:Name="textErrorText" Foreground="Red" Visibility="Collapsed"/>
 
         </WrapPanel>
+        
         <DataGrid DockPanel.Dock="Bottom" 
                   ItemsSource="{Binding Path=Reservations, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                   Width="613" Margin="94,74,94,66" MouseDoubleClick="ReservationsClick" >
 
             <DataGrid.Columns>
+                
                 <DataGridTextColumn  Header="Hotel" Binding="{Binding Apartment.Hotel.Name}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Apartment" Binding="{Binding Apartment.Name}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Date" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Status" Binding="{Binding Status}" Width="130"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Reason" Binding="{Binding Comment}" Width="115"></DataGridTextColumn>
+            
             </DataGrid.Columns>
+            
         </DataGrid>
+        
     </Grid>
+    
 </Window>

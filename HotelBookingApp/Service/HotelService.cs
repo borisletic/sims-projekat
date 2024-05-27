@@ -11,18 +11,20 @@ namespace HotelBookingApp.Service
     {
         private readonly IHotelRepository hotelRepository;
         private readonly IOwnerRepository ownerRepository;
+
         public HotelService()
         {
             hotelRepository = HotelRepository.GetInstance();
             ownerRepository = OwnerRepository.GetInstance();
+
             BindOwner();
         }
 
         public void BindOwner()
         {
-            foreach(var r in GetAll())
+            foreach(var a in GetAll())
             {
-                r.Owner = ownerRepository.Get(r.OwnerId);
+                a.Owner = ownerRepository.Get(a.OwnerId);
             }
         }
 
@@ -49,10 +51,12 @@ namespace HotelBookingApp.Service
         public List<Apartment> GetAllApartments()
         {
             var apartments = new List<Apartment>();
+
             foreach (var hotel in GetAll())
             {
                 apartments.AddRange(hotel.Apartments.Values);
             }
+
             return apartments;
         }
 

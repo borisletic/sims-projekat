@@ -72,31 +72,17 @@ namespace HotelBookingApp.View
             Filters.Add("Rejected");
         }
 
-        private void Filter(object sender, RoutedEventArgs e)
+
+        private void Clear(object sender, RoutedEventArgs e)
         {
-            List<Reservation> filteredReservations = new List<Reservation>();
-
-            if (SelectedFilter == "Waiting")
-            {
-                filteredReservations = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
-            }
-
-            else if (SelectedFilter == "Approved")
-            {
-                filteredReservations = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Approved).ToList();
-            }
-
-            else if (SelectedFilter == "Rejected")
-            {
-                filteredReservations = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Rejected).ToList();
-            }
-
             Reservations.Clear();
 
-            foreach (var reservation in filteredReservations)
+            foreach (var reservation in reservationController.GetAll())
             {
                 Reservations.Add(reservation);
             }
+
+            myComboBox.Text = "";
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -123,16 +109,31 @@ namespace HotelBookingApp.View
             }
         }
 
-        private void Clear(object sender, RoutedEventArgs e)
+        private void Filter(object sender, RoutedEventArgs e)
         {
+            List<Reservation> filter = new List<Reservation>();
+
+            if (SelectedFilter == "Waiting")
+            {
+                filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
+            }
+
+            else if (SelectedFilter == "Approved")
+            {
+                filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Approved).ToList();
+            }
+
+            else if (SelectedFilter == "Rejected")
+            {
+                filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Rejected).ToList();
+            }
+
             Reservations.Clear();
 
-            foreach (var reservation in reservationController.GetAll())
+            foreach (var reservation in filter)
             {
                 Reservations.Add(reservation);
             }
-
-            myComboBox.Text = "";
         }
     }
 }

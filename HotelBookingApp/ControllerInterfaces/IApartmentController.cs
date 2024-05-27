@@ -10,9 +10,9 @@ namespace HotelBookingApp.ControllerInterfaces
         void BindHotel();
         List<Apartment> GetAll();
         Apartment Get(int id);
-        void Create(Apartment entity);
-        void Delete(Apartment entity);
-        Apartment Update(Apartment entity);
+        void Create(Apartment apartment);
+        void Delete(Apartment apartment);
+        Apartment Update(Apartment apartment);
         void Save();
 
     }

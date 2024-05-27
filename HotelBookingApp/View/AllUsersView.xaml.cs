@@ -7,8 +7,7 @@ using HotelBookingApp.Model;
 
 
 namespace HotelBookingApp.View
-{
- 
+{ 
     public partial class AllUsersView : Window
     {
 
@@ -22,6 +21,7 @@ namespace HotelBookingApp.View
         public string SelectedUser
         {
             get => selectedUser;
+
             set
             {
                 selectedUser = value;
@@ -31,6 +31,7 @@ namespace HotelBookingApp.View
         public AllUsersView()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             
@@ -236,11 +237,13 @@ namespace HotelBookingApp.View
         private void SortByNameReversed(object sender, RoutedEventArgs e)
         {
             List<User> users = new List<User>();
+
             users.AddRange(ownerController.GetAll());
             users.AddRange(administratorController.GetAll());
             users.AddRange(guestController.GetAll());
 
             Users.Clear();
+
             foreach (var user in users.OrderByDescending(user => user.Name).ToList())
             {
                 Users.Add(user);
@@ -250,11 +253,13 @@ namespace HotelBookingApp.View
         private void SortBySurnameReversed(object sender, RoutedEventArgs e)
         {
             List<User> users = new List<User>();
+
             users.AddRange(ownerController.GetAll());
             users.AddRange(administratorController.GetAll());
             users.AddRange(guestController.GetAll());
 
             Users.Clear();
+
             foreach (var user in users.OrderByDescending(user => user.Surname).ToList())
             {
                 Users.Add(user);

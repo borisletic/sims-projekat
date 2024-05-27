@@ -7,37 +7,63 @@
         xmlns:val="clr-namespace:HotelBookingApp.Validation"
         mc:Ignorable="d"
         Title="Hotel" Height="500" Width="850">
+    
     <DockPanel>
+        
         <WrapPanel  Margin="74,10,70,0" DockPanel.Dock="Top" Width="652" Height="103">
+            
             <Button Click="SortByStar" Height="22" Content="Sort by stars" Margin="-30,0,0,0"/>
             <Button Click="SortByName" Height="22" Content="Sort by name" Margin="8,0,0,0"/>
 
             <ComboBox ItemsSource="{Binding Hotels}" SelectedItem="{Binding SelectedHotel}" Height="22" Width="130" Margin="155,1,8,0"/>
+           
             <TextBox x:Name="myTextBox" Width="120" TextWrapping="Wrap" Height="22" Margin="0,1,8,0">
                 <TextBox.Text>
+                    
                     <Binding Path="Text" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                       
                         <Binding.ValidationRules>
+                            
                             <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                            
                         </Binding.ValidationRules>
+                        
                     </Binding>
+                    
                 </TextBox.Text>
+                
                 <Validation.ErrorTemplate>
+                    
                     <ControlTemplate>
+                        
                         <Grid>
+                            
                             <Grid.RowDefinitions>
+                                
                                 <RowDefinition />
                                 <RowDefinition Height="Auto" />
+                                
                             </Grid.RowDefinitions>
+                            
                             <Grid.ColumnDefinitions>
+                                
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="Auto" />
+                                
                             </Grid.ColumnDefinitions>
+                            
                             <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                        
                         </Grid>
+                        
                     </ControlTemplate>
+                    
                 </Validation.ErrorTemplate>
+                
             </TextBox>
+            
             <Button Click="Filter" Content="Search" Height="22" Width="50"/>
             <Button Content="Clear" Click="Clear" Margin="8,0,0,0" Height="22" Width="50"/>
 
@@ -45,21 +71,29 @@
             <Button x:Name="ReservationButton" Click="ShowReservations" Content="Reservations" Width="70" Height="22" Margin="8,8,0,0"/>
             <Button x:Name="ApproveHotelButton" Click="ApproveHotel" Content="Approve Hotel" Width="81" Height="22" Margin="8,8,0,0"/>
             <Button x:Name="AddHotelButton" Click="AddHotel" Content="Add Hotel" Width="68" Height="22" Margin="583,6,0,0"/>
+        
         </WrapPanel>
+        
         <DataGrid DockPanel.Dock="Bottom" 
                   ItemsSource="{Binding Path=Apartments, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedApartment}"
                   Width="676" Height="314" Margin="50,-105,50,50"
                   x:Name="MyDataGrid" MouseDoubleClick="ReservationApartment">
+            
             <DataGrid.Columns>
+                
                 <DataGridTextColumn  Header="Code" Binding="{Binding Hotel.Code}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Name" Binding="{Binding Hotel.Name}" Width="120"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Construction year" Binding="{Binding Hotel.ConstructionYear}" Width="150"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Apartment" Binding="{Binding Name}" Width="150"></DataGridTextColumn>
                 <DataGridTextColumn  Header="Number of stars" Binding="{Binding Hotel.StarsNumber}" Width="110"></DataGridTextColumn>
+            
             </DataGrid.Columns>
+            
         </DataGrid>
+        
         <Button Click="SignOutButton" Content="Sign out" Height="22" Width="50" Margin="770,-273,0,0"/>
 
     </DockPanel>
+    
 </Window>

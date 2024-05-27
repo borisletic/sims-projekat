@@ -5,7 +5,7 @@ namespace HotelBookingApp.RepositoryInterfaces
 {
     public interface IAdministratorRepository
     {
-        Administrator Update(Administrator entity);
+        Administrator Update(Administrator administrator);
 
         List<Administrator> GetAll();
         

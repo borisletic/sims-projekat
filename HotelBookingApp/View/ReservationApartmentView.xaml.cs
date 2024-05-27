@@ -29,7 +29,7 @@ namespace HotelBookingApp.View
 
         private readonly ReservationController reservationController;
 
-        public ReservationApartmentView(Apartment a)
+        public ReservationApartmentView(Apartment apartment)
         {
             InitializeComponent();
 
@@ -39,13 +39,10 @@ namespace HotelBookingApp.View
 
             reservationController = new ReservationController();
 
-            SelectedApartment = a;
+            SelectedApartment = apartment;
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
 
         private void MakeReservation(object sender, RoutedEventArgs e)
         {
@@ -82,6 +79,11 @@ namespace HotelBookingApp.View
             ReservationShowView rsv = new ReservationShowView();
 
             rsv.Show();
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

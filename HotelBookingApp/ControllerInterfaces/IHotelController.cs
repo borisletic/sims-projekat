@@ -9,7 +9,7 @@ namespace HotelBookingApp.ControllerInterfaces
 
         List<Hotel> GetAll();
         Hotel Get(int id);
-        void Update(Hotel entity);
+        void Update(Hotel hotel);
         void Create(Hotel hotel);
         List<Apartment> GetAllApartments();
         void Delete(Hotel hotel);

@@ -33,6 +33,7 @@ namespace HotelBookingApp.View
         public ApartmentFilterCondition()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             
@@ -56,16 +57,12 @@ namespace HotelBookingApp.View
             set
             {
                 condition = value;
+
                 OnPropertyChanged();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
 
         private void Search(object sender, RoutedEventArgs e)
         {
@@ -103,6 +100,13 @@ namespace HotelBookingApp.View
             {
                 HotelView.Apartments.Add(apart);
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 

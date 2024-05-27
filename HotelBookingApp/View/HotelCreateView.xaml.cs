@@ -16,6 +16,7 @@ namespace HotelBookingApp.View
         public HotelCreateView()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -28,25 +29,29 @@ namespace HotelBookingApp.View
         public string Code
         {
             get => code;
+
             set
             {
                 if (value != code)
                 {
                     code = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
         private string name;
-        public string NameA
+        public string NameHotel
         {
             get => name;
+
             set
             {
                 if (value != name)
                 {
                     name = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -56,11 +61,13 @@ namespace HotelBookingApp.View
         public int ConstructionYear
         {
             get => constructionYear;
+
             set
             {
                 if (value != constructionYear)
                 {
                     constructionYear = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -70,11 +77,13 @@ namespace HotelBookingApp.View
         public int StarsNumber
         {
             get => starsNumber;
+
             set
             {
                 if (value != starsNumber)
                 {
                     starsNumber = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -84,11 +93,13 @@ namespace HotelBookingApp.View
         public string OwnerJmbg
         {
             get => ownerJmbg;
+
             set
             {
                 if (value != ownerJmbg)
                 {
                     ownerJmbg = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -103,17 +114,20 @@ namespace HotelBookingApp.View
 
         private void CreateHotel(object sender, RoutedEventArgs e)
         {
-            Hotel h = new Hotel
+            Hotel hotel = new Hotel
             {
                 Code = Code,
-                Name = NameA,
+                Name = NameHotel,
                 ConstructionYear = ConstructionYear,
                 StarsNumber = StarsNumber,
                 JmbgOwner = OwnerJmbg,
                 Accepted = false
             };
-            hotelController.Create(h);
+
+            hotelController.Create(hotel);
+
             MessageBox.Show("Your hotel has to be approved by the owner", "Hotel approval");
+
             this.Close();
         }
 

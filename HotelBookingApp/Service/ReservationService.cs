@@ -21,33 +21,36 @@ namespace HotelBookingApp.Service
             guestRepository = GuestRepository.GetInstance();
             apartmentRepository = ApartmentRepository.GetInstance();
             ownerRepository = OwnerRepository.GetInstance();
+
             BindGuest();
             BindApartment();
             BindOwner();
         }
 
+        public void BindGuest()
+        {
+            foreach (var reservation in reservationRepository.GetAll())
+            {
+                reservation.Guest = guestRepository.Get(reservation.GuestId);
+            }
+        }
+
         public void BindApartment()
         {
-            foreach(var r in reservationRepository.GetAll())
+            foreach(var reservation in reservationRepository.GetAll())
             {
-                r.Apartment = apartmentRepository.Get(r.ApartmentId);
+                reservation.Apartment = apartmentRepository.Get(reservation.ApartmentId);
             }
         }
 
         public void BindOwner()
         {
-            foreach(var r in reservationRepository.GetAll())
+            foreach(var reservation in reservationRepository.GetAll())
             {
-                r.Owner = ownerRepository.Get(r.OwnerId);
+                reservation.Owner = ownerRepository.Get(reservation.OwnerId);
             }
         }
-        public void BindGuest()
-        {
-            foreach(var r in reservationRepository.GetAll())
-            {
-                r.Guest = guestRepository.Get(r.GuestId);
-            }
-        }
+        
       
         public List<Reservation> GetAll()
         {

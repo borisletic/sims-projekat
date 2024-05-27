@@ -31,13 +31,6 @@ namespace HotelBookingApp.View
             Hotels = new ObservableCollection<Hotel>(hotelController.GetAll().Where(hotel => !hotel.Accepted && MainWindow.LogInUser.Jmbg == hotel.JmbgOwner));
         }
 
-        private void OpenSelectedHotel(object sender, MouseButtonEventArgs e)
-        {
-            HotelApprovalView hotelapproval = new HotelApprovalView(SelectedHotel);
-
-            hotelapproval.Show();
-        }
-
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             HotelView hotelview = new HotelView(MainWindow.LogInUser);
@@ -46,5 +39,14 @@ namespace HotelBookingApp.View
 
             this.Close();
         }
+
+        private void OpenSelectedHotel(object sender, MouseButtonEventArgs e)
+        {
+            HotelApprovalView hotelapproval = new HotelApprovalView(SelectedHotel);
+
+            hotelapproval.Show();
+        }
+
+        
     }
 }

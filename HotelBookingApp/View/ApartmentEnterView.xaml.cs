@@ -21,6 +21,7 @@ namespace HotelBookingApp.View
         public ApartmentEnterView()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             
@@ -30,17 +31,17 @@ namespace HotelBookingApp.View
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             List<string> hotels = hotelController.GetAll()
-                .Where(r => r.OwnerId == MainWindow.LogInUser.Id)
-                .Select(h => h.Name)
+                .Where(reservation => reservation.OwnerId == MainWindow.LogInUser.Id)
+                .Select(hotel => hotel.Name)
                 .ToList();
 
             Hotels = new ObservableCollection<string>(hotels);
 
             Hotels.Clear();
 
-            foreach (var h in hotels)
+            foreach (var hotel in hotels)
             {
-                Hotels.Add(h);
+                Hotels.Add(hotel);
             }
         }
 
@@ -58,10 +59,11 @@ namespace HotelBookingApp.View
                 RoomNumber = int.Parse(RoomNumber),
                 MaxGuestNumber = int.Parse(MaxGuestNumber),
                 Description = Description,
-                Hotel = hotelController.GetAll().Find(h => h.Name == SelectedHotel)
+                Hotel = hotelController.GetAll().Find(hotel => hotel.Name == SelectedHotel)
             };
 
             apart.HotelId = apart.Hotel.Id;
+
             apartmentController.Create(apart);
 
             HotelView.Apartments.Clear();

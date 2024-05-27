@@ -15,6 +15,7 @@ namespace HotelBookingApp.Service
         {
             apartmentRepository = ApartmentRepository.GetInstance();
             hotelRepository = HotelRepository.GetInstance();
+
             BindHotel();
         }
 
@@ -22,9 +23,10 @@ namespace HotelBookingApp.Service
         {
             foreach(var a in GetAll())
             {
-                Hotel h = hotelRepository.Get(a.HotelId);
-                a.Hotel = h;
-                h.Apartments.Add(a.Id, a);
+                Hotel hotel = hotelRepository.Get(a.HotelId);
+                a.Hotel = hotel;
+
+                hotel.Apartments.Add(a.Id, a);
             }
         }
         

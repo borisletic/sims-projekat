@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:HotelBookingApp.View"
         mc:Ignorable="d"
         Title="Reservation" Height="300" Width="350">
+    
     <Grid>
+        
         <StackPanel Margin="29,26,29,26">
+            
             <TextBlock Text="Approve or reject reservation" HorizontalAlignment="Center" Margin="0,40,0,0"/>
 
             <Button Click="ApproveReservation" Content="Approve" Height="22" Width="56" Margin="-150,50,0,0"/>
+            
             <Button Click="RejectReservation" Content="Reject" Height="22" Width="54" Margin="150,-22,0,0"/>
 
         </StackPanel>
+        
     </Grid>
+    
 </Window>

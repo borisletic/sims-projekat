@@ -22,7 +22,9 @@ namespace HotelBookingApp.Model
 
         public Reservation()
         {
+
         }
+
         public Reservation(Guest guest, Owner owner, ReservationStatus status, Apartment apartment, DateTime startDate)
         {
             Status = status;

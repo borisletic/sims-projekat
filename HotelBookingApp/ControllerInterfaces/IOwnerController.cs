@@ -9,7 +9,7 @@ namespace HotelBookingApp.ControllerInterfaces
 
         List<Owner> GetAll();
         Owner Get(int id);
-        Owner Update(Owner entity);
+        Owner Update(Owner owner);
         Owner GetByEmailAndPassword(string email, string password);
         void Create(Owner owner);
         void Save();

@@ -7,7 +7,7 @@ namespace HotelBookingApp.ServiceInterfaces
     {       
         void Subscribe(IObserver observer);
         void Unsubscribe(IObserver observer);
-        void Create(Reservation entity);
-        void Delete(Reservation entity);
+        void Create(Reservation reservation);
+        void Delete(Reservation reservation);
     }
 }

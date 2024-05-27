@@ -13,7 +13,9 @@ namespace HotelBookingApp.Repository
 
         private readonly List<IObserver> observers;
         private readonly Serializer<Reservation> serializer;
+
         private List<Reservation> reservations;
+
         private static IReservationRepository instance = null;
 
         public static IReservationRepository GetInstance()
@@ -22,13 +24,16 @@ namespace HotelBookingApp.Repository
             {
                 instance = new ReservationRepository();
             }
+
             return instance;
         }
         private ReservationRepository()
-        {
-            reservations = new List<Reservation>();
+        {         
             serializer = new Serializer<Reservation>();
+
+            reservations = new List<Reservation>();
             reservations = serializer.FromCSV(filePath);
+
             observers = new List<IObserver>();
         }
            
@@ -36,14 +41,17 @@ namespace HotelBookingApp.Repository
         public void Create(Reservation entity)
         {
             entity.Id = NextId();
+
             reservations.Add(entity);
             Save();
+
             NotifyObservers();
         }
         public void Delete(Reservation entity)
         {
             entity.Deleted = true;
             Save();
+
             NotifyObservers();
         }
         
@@ -61,14 +69,17 @@ namespace HotelBookingApp.Repository
         {
             if (reservations.Count == 0)
                 return 0;
+
             int nextId = reservations[reservations.Count - 1].Id + 1;
-            foreach (Reservation r in reservations)
+
+            foreach (Reservation reservation in reservations)
             {
-                if (nextId == r.Id)
+                if (nextId == reservation.Id)
                 {
                     nextId++;
                 }
             }
+
             return nextId;
         }
         public void NotifyObservers()
@@ -82,13 +93,17 @@ namespace HotelBookingApp.Repository
         public Reservation Update(Reservation entity)
         {
             var oldEntity = Get(entity.Id);
+
             if (oldEntity == null)
             {
                 return null;
             }
+
             oldEntity = entity;
             Save();
+
             NotifyObservers();
+
             return oldEntity;
         }
 

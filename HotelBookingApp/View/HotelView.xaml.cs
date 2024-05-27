@@ -17,6 +17,7 @@ namespace HotelBookingApp.View
 
         private readonly HotelController hotelController;
         private readonly ApartmentController apartmentController;
+
         public static ObservableCollection<Apartment> Apartments { get; set; }
 
         public ObservableCollection<String> Hotels { get; set; }
@@ -32,9 +33,9 @@ namespace HotelBookingApp.View
 
                 if (selectedHotel == "Apartments")
                 {
-                    ApartmentFilterCondition ac = new ApartmentFilterCondition();
+                    ApartmentFilterCondition afc = new ApartmentFilterCondition();
 
-                    ac.Show();
+                    afc.Show();
                 }
             }
         }
@@ -166,9 +167,9 @@ namespace HotelBookingApp.View
 
             else if (SelectedHotel == "Apartments")
             {
-                ApartmentFilterCondition ac = new ApartmentFilterCondition();
+                ApartmentFilterCondition afc = new ApartmentFilterCondition();
 
-                ac.Show();
+                afc.Show();
             }
 
             Apartments.Clear();
@@ -226,9 +227,25 @@ namespace HotelBookingApp.View
 
         private void CreateApartment(object sender, RoutedEventArgs e)
         {
-            ApartmentEnterView a = new ApartmentEnterView();
+            ApartmentEnterView aev = new ApartmentEnterView();
 
-            a.Show();
+            aev.Show();
+        }
+
+        
+
+        private void AddHotel(object sender, RoutedEventArgs e)
+        {
+            HotelCreateView hcv = new HotelCreateView();
+
+            hcv.Show();
+        }
+
+        private void ApproveHotel(object sender, RoutedEventArgs e)
+        {
+            HotelApprovalTableView hatv = new HotelApprovalTableView();
+
+            hatv.Show();
         }
 
         private void SignOutButton(object sender, RoutedEventArgs e)
@@ -252,19 +269,6 @@ namespace HotelBookingApp.View
                 return;
             }
 
-        }
-
-        private void AddHotel(object sender, RoutedEventArgs e)
-        {
-            HotelCreateView hcv = new HotelCreateView();
-
-            hcv.Show();
-        }
-
-        private void ApproveHotel(object sender, RoutedEventArgs e)
-        {
-            HotelApprovalTableView hatv = new HotelApprovalTableView();
-            hatv.Show();
         }
     }
 }

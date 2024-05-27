@@ -96,27 +96,7 @@ namespace HotelBookingApp.View
             Filters.Add("Approved");
         }
 
-        private void Filter(object sender, RoutedEventArgs e)
-        {
-            List<Reservation> filteredReservations = new List<Reservation>();
-
-            if (SelectedFilter == "Waiting")
-            {
-                filteredReservations = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
-            }
-
-            else
-            {
-                filteredReservations = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Approved).ToList();
-            }
-
-            Reservations.Clear();
-
-            foreach (var reservation in filteredReservations)
-            {
-                Reservations.Add(reservation);
-            }
-        }
+        
 
         private void HotelClick(object sender, RoutedEventArgs e)
         {
@@ -128,20 +108,6 @@ namespace HotelBookingApp.View
             {
                 Reservations.Add(reservation);
             }
-        }
-
-        private void Clear(object sender, RoutedEventArgs e)
-        {
-            Reservations.Clear();
-
-            foreach (Reservation reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
-            {
-                Reservations.Add(reservation);
-            }
-
-            OnPropertyChanged(nameof(Reservations));
-
-            myTextBox.Text = "";
         }
 
 
@@ -164,6 +130,42 @@ namespace HotelBookingApp.View
             ApartmentEnterView aew = new ApartmentEnterView();
 
             aew.Show();
+        }
+
+        private void Clear(object sender, RoutedEventArgs e)
+        {
+            Reservations.Clear();
+
+            foreach (Reservation reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
+            {
+                Reservations.Add(reservation);
+            }
+
+            OnPropertyChanged(nameof(Reservations));
+
+            myTextBox.Text = "";
+        }
+
+        private void Filter(object sender, RoutedEventArgs e)
+        {
+            List<Reservation> filter = new List<Reservation>();
+
+            if (SelectedFilter == "Waiting")
+            {
+                filter = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
+            }
+
+            else
+            {
+                filter = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Approved).ToList();
+            }
+
+            Reservations.Clear();
+
+            foreach (var reservation in filter)
+            {
+                Reservations.Add(reservation);
+            }
         }
     }
 }

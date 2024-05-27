@@ -14,14 +14,18 @@ namespace HotelBookingApp.Repository
 
         private readonly Serializer<Apartment> serializer;
         private readonly List<IObserver> observers;
+
         private List<Apartment> apartments;
+
         private static IApartmentRepository instance = null;
 
         private ApartmentRepository()
         {
             serializer = new Serializer<Apartment>();
+
             apartments = new List<Apartment>();
             apartments = serializer.FromCSV(filePath);
+
             observers = new List<IObserver>();
 
         }
@@ -32,6 +36,7 @@ namespace HotelBookingApp.Repository
             {
                 instance = new ApartmentRepository();
             }
+
             return instance;
         }
 
@@ -40,14 +45,17 @@ namespace HotelBookingApp.Repository
         {
             apartments.Remove(entity);
             Save();
+
             return entity;
         }
 
         public Apartment Create(Apartment entity)
         {
             entity.Id = NextId();
+
             apartments.Add(entity);
             Save();
+
             return entity;
         }
         public List<Apartment> GetAll()
@@ -64,26 +72,32 @@ namespace HotelBookingApp.Repository
         public int NextId()
         {
             if (apartments.Count == 0) return 0;
+
             int newId = apartments[apartments.Count() - 1].Id + 1;
-            foreach (Apartment a in apartments)
+
+            foreach (Apartment apartment in apartments)
             {
-                if (newId == a.Id)
+                if (newId == apartment.Id)
                 {
                     newId++;
                 }
             }
+
             return newId;
         }
         
         public Apartment Update(Apartment entity)
         {
             var oldEntity = Get(entity.Id);
+
             if (oldEntity == null)
             {
                 return null;
             }
+
             oldEntity = entity;
             Save();
+
             return oldEntity;
         }
 
@@ -101,18 +115,22 @@ namespace HotelBookingApp.Repository
         void IApartmentRepository.Create(Apartment entity)
         {
             entity.Id = NextId();
+
             apartments.Add(entity);
             Save();
+
             NotifyObservers();
         }
 
         void IApartmentRepository.Delete(Apartment entity)
         {
             var apartment = Get(entity.Id);
+
             if (apartment != null)
             {
                 apartments.Remove(apartment);
                 Save();
+
                 NotifyObservers();
             }
         }
@@ -120,9 +138,9 @@ namespace HotelBookingApp.Repository
 
         public void NotifyObservers()
         {
-            foreach (var o in observers)
+            foreach (var observer in observers)
             {
-                o.Update();
+                observer.Update();
             }
         }
 

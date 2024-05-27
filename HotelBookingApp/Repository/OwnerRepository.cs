@@ -13,7 +13,9 @@ namespace HotelBookingApp.Repository
 
         private readonly List<IObserver> observers;
         private readonly Serializer<Owner> serializer;
+
         private List<Owner> owners;
+
         private static IOwnerRepository instance = null;
 
         public static IOwnerRepository GetInstance()
@@ -22,13 +24,16 @@ namespace HotelBookingApp.Repository
             {
                 instance = new OwnerRepository();
             }
+
             return instance;
         }
         private OwnerRepository()
         {
             serializer = new Serializer<Owner>();
+
             owners = new List<Owner>();
             owners = serializer.FromCSV(filePath);
+
             observers = new List<IObserver>();
         }
         
@@ -46,6 +51,7 @@ namespace HotelBookingApp.Repository
         public void Create(Owner owner)
         {
             owner.Id = NextId();
+
             owners.Add(owner);
             Save();
         }
@@ -68,14 +74,17 @@ namespace HotelBookingApp.Repository
         public int NextId()
         {
             if (owners.Count == 0) return 0;
+
             int newId = owners[owners.Count() - 1].Id + 1;
-            foreach (Owner a in owners)
+
+            foreach (Owner owner in owners)
             {
-                if (newId == a.Id)
+                if (newId == owner.Id)
                 {
                     newId++;
                 }
             }
+
             return newId;
         }
 

@@ -5,12 +5,12 @@ namespace HotelBookingApp.RepositoryInterfaces
 {
     public interface IApartmentRepository : IRepository<Apartment>, ISubject
     {
-        void Delete(Apartment entity);
+        void Delete(Apartment apartment);
 
-        void Create(Apartment entity);
+        void Create(Apartment apartment);
 
         void Save();
 
-        Apartment Update(Apartment entity);
+        Apartment Update(Apartment apartment);
     }
 }

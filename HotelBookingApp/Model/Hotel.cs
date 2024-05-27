@@ -7,9 +7,6 @@ namespace HotelBookingApp.Model
 {
     public class Hotel : HotelBookingApp.Serializer.ISerializable
     {
-        private Regex NumberOfStarsRegex = new Regex("[2-7]{1}");
-        private Regex JmbgOfTheOwnerRegex = new Regex("[0-9]{13}");
-
         private int id;
         private string code;
         private string name;
@@ -134,6 +131,12 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        public Hotel()
+        {
+            apartments = new Dictionary<int, Apartment>();
+        }
+
         public Hotel(int id, string code, string name, Dictionary<int, Apartment> apartments, int constructionYear, int starsNumber, string jmbgOwner, int ownerId, Owner owner)
         {
             Id = id;
@@ -146,10 +149,7 @@ namespace HotelBookingApp.Model
             OwnerId = ownerId;
             Owner = owner;
         }
-        public Hotel()
-        {
-            apartments = new Dictionary<int, Apartment>();
-        }
+        
 
         public virtual string[] ToCSV()
         {

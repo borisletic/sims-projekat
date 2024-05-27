@@ -7,7 +7,7 @@ namespace HotelBookingApp.RepositoryInterfaces
     {
         void Save();
 
-        Guest Update(Guest entity);
+        Guest Update(Guest guest);
         
     }
 }

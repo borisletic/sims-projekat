@@ -15,14 +15,18 @@ namespace HotelBookingApp.Repository
 
 
         private List<IObserver> observers;
+
         private List<Administrator> administrators;
+
         private static IAdministratorRepository instance = null;
 
         private AdministratorRepository()
         {
             serializer = new Serializer<Administrator>();
+
             administrators = new List<Administrator>();
             administrators = serializer.FromCSV(filePath);
+
             observers = new List<IObserver>();
         }
 
@@ -32,6 +36,7 @@ namespace HotelBookingApp.Repository
             {
                 instance = new AdministratorRepository();
             }
+
             return instance;
         }
 
@@ -66,7 +71,6 @@ namespace HotelBookingApp.Repository
             }
 
             oldEntity = entity;
-
             Save();
 
             return oldEntity;

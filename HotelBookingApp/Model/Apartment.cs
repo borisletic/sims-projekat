@@ -19,12 +19,39 @@ namespace HotelBookingApp.Model
 
             set
             {
-                if(value != 0)
+                if (value != 0)
                 {
                     id = value;
                 }
             }
         }
+
+        public int HotelId
+        {
+            get => hotelId;
+
+            set
+            {
+                if (value != hotelId)
+                {
+                    hotelId = value;
+                }
+            }
+        }
+        public Hotel Hotel
+        {
+            get => hotel;
+
+            set
+            {
+                if (value != hotel)
+                {
+                    hotel = value;
+                }
+            }
+        }
+
+        
         public string Name
         {
             get { return name; }
@@ -74,30 +101,11 @@ namespace HotelBookingApp.Model
             }
         }
 
-        public int HotelId
+        public Apartment()
         {
-            get => hotelId;
 
-            set
-            {
-                if(value != hotelId)
-                {
-                   hotelId = value;
-                }
-            }
         }
-        public Hotel Hotel
-        {
-            get => hotel;
 
-            set
-            {
-                if(value!= hotel)
-                {
-                    hotel = value;
-                }
-            }
-        }
         public Apartment(int id, string name, string description, int roomNumber, int maxGuestNumber, Hotel hotel)
         {
             Id = id;
@@ -107,10 +115,7 @@ namespace HotelBookingApp.Model
             MaxGuestNumber = maxGuestNumber;
             Hotel = hotel;
         }
-        public Apartment()
-        {
-
-        }
+        
         public virtual string[] ToCSV()
         {
             string[] csvValues =

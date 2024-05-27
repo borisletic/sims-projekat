@@ -8,7 +8,9 @@
         Title="Users" Height="500" Width="850">
     <Grid>
         <DockPanel>
+            
             <WrapPanel DockPanel.Dock="Top" Height="80" >
+                
                 <ComboBox x:Name="myTextBox" Margin="20,20,0,0" ItemsSource="{Binding UserType}" SelectedItem="{Binding SelectedUser}" Height="22" Width="130"/>
                 <Button Click="FilterClick" Margin="8,20,0,0" Content="Search" Height="22" Width="50" />
                 <Button Click="ClearClick" Margin="8,20,0,0" Content="Clear" Height="22" Width="50" />
@@ -30,14 +32,18 @@
                       AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding ChosenUser}"
                       Width="740" Height="314"
                       x:Name="MyDataGrid">
+                
                 <DataGrid.Columns>
+                    
                     <DataGridTextColumn  Header="JMBG" Binding="{Binding Jmbg}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Email" Binding="{Binding Email}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Name" Binding="{Binding Name}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Surname" Binding="{Binding Surname}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Phone number" Binding="{Binding PhoneNumber}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Blocked" Binding="{Binding Blocked}" Width="110"></DataGridTextColumn>
+                    
                 </DataGrid.Columns>
+                
             </DataGrid>
         
 

@@ -9,7 +9,7 @@ namespace HotelBookingApp.ControllerInterfaces
 
         List<Guest> GetAll();
         Guest Get(int id);
-        void Update(Guest entity);
+        void Update(Guest guest);
         Guest GetByEmailAndPassword(string email, string password);
         void Save();
 

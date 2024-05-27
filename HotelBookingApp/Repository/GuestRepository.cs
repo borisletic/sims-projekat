@@ -12,8 +12,10 @@ namespace HotelBookingApp.Repository
         private const string filePath = "../../../Data/Guest.csv";
 
         private readonly Serializer<Guest> serializer;
+
         private List<IObserver> observers;
         private List<Guest> guests;
+
         private static IGuestRepository instance = null;
 
         public static IGuestRepository GetInstance()
@@ -28,8 +30,10 @@ namespace HotelBookingApp.Repository
         private GuestRepository()
         {
             serializer = new Serializer<Guest>();
+
             guests = new List<Guest>();
             guests = serializer.FromCSV(filePath);
+
             observers = new List<IObserver>();
         }
 
@@ -47,12 +51,15 @@ namespace HotelBookingApp.Repository
         public Guest Update(Guest entity)
         {
             Guest oldEntity = Get(entity.Id);
+
             if (oldEntity == null)
             {
                 return null;
             }
+
             oldEntity = entity;
             Save();
+
             return oldEntity;
         }
 

@@ -9,7 +9,7 @@ namespace HotelBookingApp.ControllerInterfaces
 
         List<Administrator> GetAll();
         Administrator Get(int id);
-        Administrator Update(Administrator entity);
+        Administrator Update(Administrator administrator);
         Administrator GetByEmailAndPassword(string email, string password);
         void Save();
 

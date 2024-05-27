@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace HotelBookingApp.Validation
 {
-        public class IntegerNumberValidationRule : ValidationRule
+        public class IntegerValidation : ValidationRule
         {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

@@ -7,11 +7,11 @@ namespace HotelBookingApp.RepositoryInterfaces
     {
         void Save();
 
-        Hotel Update(Hotel entity);
+        Hotel Update(Hotel hotel);
         
-        void Create(Hotel entity);
+        void Create(Hotel hotel);
 
-        Hotel Delete(Hotel entity);
+        Hotel Delete(Hotel hotel);
         
     }
 }

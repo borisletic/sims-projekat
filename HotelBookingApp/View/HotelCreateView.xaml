@@ -9,6 +9,7 @@
         Title="Create Hotel" Height="350" Width="300">
 
     <Grid>
+        
         <TextBlock HorizontalAlignment="Left" Margin="15,10,0,0" TextWrapping="Wrap" Text="Code" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="15,50,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="15,90,0,0" TextWrapping="Wrap" Text="Construction year" VerticalAlignment="Top"/>
@@ -16,136 +17,252 @@
         <TextBlock HorizontalAlignment="Left" Margin="15,170,0,0" TextWrapping="Wrap" Text="Owner JMBG" VerticalAlignment="Top"/>
 
         <TextBox HorizontalAlignment="Left" Margin="114,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
+            
             <TextBox.Text>
+               
                 <Binding Path="Code" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                   
                     <Binding.ValidationRules>
+                        
                         <val:StringValidationRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                        
                     </Binding.ValidationRules>
+                    
                 </Binding>
+                
             </TextBox.Text>
+            
             <Validation.ErrorTemplate>
+                
                 <ControlTemplate>
+                    
                     <Grid>
+                        
                         <Grid.RowDefinitions>
+                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
+                            
                         </Grid.RowDefinitions>
+                        
                         <Grid.ColumnDefinitions>
+                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
+                            
                         </Grid.ColumnDefinitions>
+                        
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                    
                     </Grid>
+                    
                 </ControlTemplate>
+                
             </Validation.ErrorTemplate>
+            
         </TextBox>
+        
         <TextBox HorizontalAlignment="Left" Margin="114,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
+            
             <TextBox.Text>
-                <Binding Path="NameA" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                
+                <Binding Path="NameHotel" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                   
                     <Binding.ValidationRules>
+                        
                         <val:StringValidationRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                        
                     </Binding.ValidationRules>
+                    
                 </Binding>
+                
             </TextBox.Text>
+            
             <Validation.ErrorTemplate>
+                
                 <ControlTemplate>
+                    
                     <Grid>
+                        
                         <Grid.RowDefinitions>
+                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
+                            
                         </Grid.RowDefinitions>
+                        
                         <Grid.ColumnDefinitions>
+                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
+                            
                         </Grid.ColumnDefinitions>
+                        
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                    
                     </Grid>
+                    
                 </ControlTemplate>
+                
             </Validation.ErrorTemplate>
+            
         </TextBox>
+        
         <TextBox HorizontalAlignment="Left" Margin="114,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
+           
             <TextBox.Text>
+               
                 <Binding Path="ConstructionYear" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                   
                     <Binding.ValidationRules>
+                        
                         <val:YearValidation ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                        
                     </Binding.ValidationRules>
+                    
                 </Binding>
+                
             </TextBox.Text>
+            
             <Validation.ErrorTemplate>
+                
                 <ControlTemplate>
+                    
                     <Grid>
+                        
                         <Grid.RowDefinitions>
+                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
+                            
                         </Grid.RowDefinitions>
+                        
                         <Grid.ColumnDefinitions>
+                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
+                            
                         </Grid.ColumnDefinitions>
+                        
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                        
                     </Grid>
+                    
                 </ControlTemplate>
+                
             </Validation.ErrorTemplate>
+            
         </TextBox>
+        
         <TextBox HorizontalAlignment="Left" Margin="114,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
+           
             <TextBox.Text>
+                
                 <Binding Path="StarsNumber" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                   
                     <Binding.ValidationRules>
+                        
                         <val:StarsNumberRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                        
                     </Binding.ValidationRules>
+                    
                 </Binding>
+                
             </TextBox.Text>
+            
             <Validation.ErrorTemplate>
+                
                 <ControlTemplate>
+                    
                     <Grid>
+                        
                         <Grid.RowDefinitions>
+                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
+                            
                         </Grid.RowDefinitions>
+                        
                         <Grid.ColumnDefinitions>
+                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
+                            
                         </Grid.ColumnDefinitions>
+                        
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                   
                     </Grid>
+                    
                 </ControlTemplate>
+                
             </Validation.ErrorTemplate>
+            
         </TextBox>
+        
         <TextBox HorizontalAlignment="Left" Margin="114,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
+            
             <TextBox.Text>
+                
                 <Binding Path="OwnerJmbg" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                   
                     <Binding.ValidationRules>
+                        
                         <val:JmbgValidationRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                        
                     </Binding.ValidationRules>
+                    
                 </Binding>
+                
             </TextBox.Text>
+            
             <Validation.ErrorTemplate>
+                
                 <ControlTemplate>
+                    
                     <Grid>
+                        
                         <Grid.RowDefinitions>
+                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
+                            
                         </Grid.RowDefinitions>
+                        
                         <Grid.ColumnDefinitions>
+                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
+                            
                         </Grid.ColumnDefinitions>
+                        
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                   
                     </Grid>
+                    
                 </ControlTemplate>
+                
             </Validation.ErrorTemplate>
+            
         </TextBox>
+        
         <Button Click="CreateHotel" Content="Create" HorizontalAlignment="Left" Margin="114,243,0,0" VerticalAlignment="Top" Height="22" Width="45"/>
 
     </Grid>
+    
 </Window>
