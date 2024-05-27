@@ -15,75 +15,75 @@ namespace HotelBookingApp.Service
     {
     public class ReservationService : IReservationService
     {
-        private readonly IReservationRepository _reservationRepository;
-        private readonly IGuestRepository _guestRepository;
-        private readonly IApartmentRepository _apartmentRepository;
-        private readonly IOwnerRepository _ownerRepository;
+        private readonly IReservationRepository reservationRepository;
+        private readonly IGuestRepository guestRepository;
+        private readonly IApartmentRepository apartmentRepository;
+        private readonly IOwnerRepository ownerRepository;
         public ReservationService()
         {
-            _reservationRepository = ReservationRepository.GetInstance();
-            _guestRepository = GuestRepository.GetInstance();
-            _apartmentRepository = ApartmentRepository.GetInstance();
-            _ownerRepository = OwnerRepository.GetInstance();
+            reservationRepository = ReservationRepository.GetInstance();
+            guestRepository = GuestRepository.GetInstance();
+            apartmentRepository = ApartmentRepository.GetInstance();
+            ownerRepository = OwnerRepository.GetInstance();
             BindGuest();
             BindApartment();
             BindOwner();
         }
 
-        private void BindApartment()
+        public void BindApartment()
         {
-            foreach(var r in _reservationRepository.GetAll())
+            foreach(var r in reservationRepository.GetAll())
             {
-                r.Apartment = _apartmentRepository.Get(r.ApartmentId);
+                r.Apartment = apartmentRepository.Get(r.ApartmentId);
             }
         }
 
-        private void BindOwner()
+        public void BindOwner()
         {
-            foreach(var r in _reservationRepository.GetAll())
+            foreach(var r in reservationRepository.GetAll())
             {
-                r.Owner = _ownerRepository.Get(r.OwnerId);
+                r.Owner = ownerRepository.Get(r.OwnerId);
             }
         }
-        private void BindGuest()
+        public void BindGuest()
         {
-            foreach(var r in _reservationRepository.GetAll())
+            foreach(var r in reservationRepository.GetAll())
             {
-                r.Guest = _guestRepository.Get(r.GuestId);
+                r.Guest = guestRepository.Get(r.GuestId);
             }
         }
       
         public List<Reservation> GetAll()
         {
-            return _reservationRepository.GetAll();
+            return reservationRepository.GetAll();
         }
         public Reservation Get(int id)
         {
-            return _reservationRepository.Get(id);
+            return reservationRepository.Get(id);
         }
         public void Create(Reservation reservation)
         {
-            _reservationRepository.Create(reservation);
+            reservationRepository.Create(reservation);
         }
         public void Subscribe(IObserver observer)
         {
-            _reservationRepository.Subscribe(observer);
+            reservationRepository.Subscribe(observer);
         }
         public void Unsubscribe(IObserver observer)
         {
-            _reservationRepository.Unsubscribe(observer);
+            reservationRepository.Unsubscribe(observer);
         }
         public void Update(Reservation reservation)
         {
-            _reservationRepository.Update(reservation);
+            reservationRepository.Update(reservation);
         }
         public void Delete(Reservation reservation)
         {
-            _reservationRepository.Delete(reservation);
+            reservationRepository.Delete(reservation);
         }            
         public void Save()
         {
-            _reservationRepository.Save();
+            reservationRepository.Save();
         }
 
     }

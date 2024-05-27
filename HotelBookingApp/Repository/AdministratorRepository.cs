@@ -12,49 +12,49 @@ namespace HotelBookingApp.Repository
 {
     public class AdministratorRepository : IAdministratorRepository
     {
-        private const string _filePath = "../../../Data/Administrator.csv";
+        private const string filePath = "../../../Data/Administrator.csv";
 
-        private Serializer<Administrator> _serializer;
+        private Serializer<Administrator> serializer;
 
 
-        private List<IObserver> _observers;
-        private List<Administrator> _administrators;
-        private static IAdministratorRepository _instance = null;
+        private List<IObserver> observers;
+        private List<Administrator> administrators;
+        private static IAdministratorRepository instance = null;
 
         private AdministratorRepository()
         {
-            _serializer = new Serializer<Administrator>();
-            _administrators = new List<Administrator>();
-            _administrators = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            serializer = new Serializer<Administrator>();
+            administrators = new List<Administrator>();
+            administrators = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
         }
 
         public static IAdministratorRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new AdministratorRepository();
+                instance = new AdministratorRepository();
             }
-            return _instance;
+            return instance;
         }
 
         
         public List<Administrator> GetAll()
         {
-            return _administrators;
+            return administrators;
         }
 
 
         public Administrator GetApartmentById(int id)
         {
-            return _administrators.Find(a => a.Id == id);
+            return administrators.Find(a => a.Id == id);
         }
 
         
 
         public Administrator Get(int id)
         {
-            return _administrators.Find(a => a.Id == id);
+            return administrators.Find(a => a.Id == id);
         }
 
         public Administrator Update(Administrator entity)
@@ -78,7 +78,7 @@ namespace HotelBookingApp.Repository
       
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _administrators);
+            serializer.ToCSV(filePath, administrators);
         }
 
 

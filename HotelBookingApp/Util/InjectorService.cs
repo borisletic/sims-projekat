@@ -15,14 +15,14 @@ namespace HotelBookingApp.Util
         public static T CreateInstance<T>()
         {
             Type type = typeof(T);
-            if (_implementations.ContainsKey(type))
+            if (implementations.ContainsKey(type))
             {
-                return (T)_implementations[type];
+                return (T)implementations[type];
             }
             throw new ArgumentException($"No implementation found for type {type}");
         }
 
-        private static Dictionary<Type, object> _implementations = new Dictionary<Type, object>
+        private static Dictionary<Type, object> implementations = new Dictionary<Type, object>
         {
             {typeof(IOwnerService), new OwnerService() },
             {typeof(IAdministratorService), new AdministratorService() },

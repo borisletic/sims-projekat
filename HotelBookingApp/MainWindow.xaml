@@ -8,7 +8,24 @@
         Title="Login" Height="300" Width="300">
     <Grid>
         <Grid>
-           
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Height="30" Margin="63,32,0,38" HorizontalAlignment="Left" Width="64">Email</Label>
+            <Label Grid.Row="1" Height="30" Margin="63,32,0,38" HorizontalAlignment="Left" Width="64">Password</Label>
+            
+            <TextBox x:Name="emailBox" Grid.Row="0" Height="20" Margin="62,70,62,10" Text="{Binding Path=Email}"/>
+            
+            <TextBlock Grid.Row="2" Margin="60,-10,45,0" x:Name="emailErrorText" Foreground="Red" Visibility="Collapsed"/>
+
+            <PasswordBox Grid.Row="1" Margin="63,70,62,10" x:Name="passwordBox" Height="20" Password=""/>
+
+            <Button Grid.Row="2" Content=" Login " IsCancel="True" HorizontalAlignment="Center" Click="LogIn" Width="74" Margin="0,30,0,40"/>
+
         </Grid>
     </Grid>
 </Window>

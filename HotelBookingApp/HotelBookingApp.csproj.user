@@ -10,5 +10,41 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\AllUsersView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ApartmentEnterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ApartmentFilterCondition.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ApproveReservationView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HotelApprovalTableView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HotelApprovalView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HotelCreateView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HotelView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\OwnerCreateView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReservationApartmentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReservationsForOwner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ReservationShowView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

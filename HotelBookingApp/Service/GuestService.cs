@@ -13,25 +13,25 @@ namespace HotelBookingApp.Service
 {
     public class GuestService : IGuestService
     {
-        private readonly IGuestRepository _guestRepository;
+        private readonly IGuestRepository guestRepository;
         public GuestService()
         {
-            _guestRepository = GuestRepository.GetInstance();
+            guestRepository = GuestRepository.GetInstance();
         }
         
         public List<Guest> GetAll()
         {
-            return _guestRepository.GetAll();
+            return guestRepository.GetAll();
         }
 
         public Guest Get(int id)
         {
-            return _guestRepository.Get(id);
+            return guestRepository.Get(id);
         }
 
         public void Update(Guest entity)
         {
-            _guestRepository.Update(entity);
+            guestRepository.Update(entity);
         }
         
         public Guest GetByEmailAndPassword(string email, string password)
@@ -41,12 +41,12 @@ namespace HotelBookingApp.Service
 
         void IService<Guest>.Update(Guest entity)
         {
-            _guestRepository.Update(entity);
+            guestRepository.Update(entity);
         }
 
         public void Save()
         {
-            _guestRepository.Save();
+            guestRepository.Save();
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿<Window x:Class="HotelBookingApp.View.ApartmentFilterCondition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelBookingApp.View"
+        xmlns:val="clr-namespace:HotelBookingApp.Validation"
+        mc:Ignorable="d"
+        Title="Apartment" Height="250" Width="300">
+    <Grid>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,41,0,0"
+                  ItemsSource="{Binding Apartments}" SelectedItem="{Binding SelectedApartment}" Width="129"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="133,115,0,0"
+                 TextWrapping="Wrap"  Width="131" Height="22">
+            <TextBox.Text>
+                <Binding Path="Condition" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
+                    <Binding.ValidationRules>
+                        <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+
+        <Button Click="Search" Content="Search" HorizontalAlignment="Center" Margin="0,175,0,0" VerticalAlignment="Top" Height="22" Width="46"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,43,0,0" TextWrapping="Wrap" Text="Select option" VerticalAlignment="Top" Height="20" Width="73"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,117,0,0" TextWrapping="Wrap" Text="Enter a number" VerticalAlignment="Top"  Height="20" Width="88"/>
+
+    </Grid>
+</Window>

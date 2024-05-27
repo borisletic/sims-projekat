@@ -11,56 +11,56 @@ namespace HotelBookingApp.Repository
 {
     public class HotelRepository : IHotelRepository
     {
-        private const string _filePath = "../../../Data/Hotel.csv";
+        private const string filePath = "../../../Data/Hotel.csv";
 
-        private readonly List<IObserver> _observers;
-        private readonly Serializer<Hotel> _serializer;
-        private List<Hotel> _hotels;
-        private static IHotelRepository _instance = null;
+        private readonly List<IObserver> observers;
+        private readonly Serializer<Hotel> serializer;
+        private List<Hotel> hotels;
+        private static IHotelRepository instance = null;
 
         public static IHotelRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new HotelRepository();
+                instance = new HotelRepository();
             }
-            return _instance;
+            return instance;
         }
 
         private HotelRepository()
         {
-            _serializer = new Serializer<Hotel>();
-            _hotels = new List<Hotel>();
-            _hotels = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            serializer = new Serializer<Hotel>();
+            hotels = new List<Hotel>();
+            hotels = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
         }
         public void Create(Hotel entity)
         {
             entity.Id = NextId();
-            _hotels.Add(entity);
+            hotels.Add(entity);
             Save();
         }
         public Hotel Delete(Hotel entity)
         {
-            _hotels.Remove(entity);
+            hotels.Remove(entity);
             Save();
             return entity;
         }
 
         public Hotel Get(int id)
         {
-            return _hotels.Find(a => a.Id == id);
+            return hotels.Find(a => a.Id == id);
         }
         public List<Hotel> GetAll()
         {
-            return _hotels;
+            return hotels;
         }
 
         public int NextId()
         {
-            if (_hotels.Count == 0) return 0;
-            int newId = _hotels[_hotels.Count() - 1].Id + 1;
-            foreach (Hotel a in _hotels)
+            if (hotels.Count == 0) return 0;
+            int newId = hotels[hotels.Count() - 1].Id + 1;
+            foreach (Hotel a in hotels)
             {
                 if (newId == a.Id)
                 {
@@ -87,7 +87,7 @@ namespace HotelBookingApp.Repository
 
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _hotels);
+            serializer.ToCSV(filePath, hotels);
         }
 
     }

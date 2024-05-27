@@ -12,35 +12,35 @@ namespace HotelBookingApp.Repository
 {
     public class ApartmentRepository : IApartmentRepository
     {
-        private const string _filePath = "../../../Data/Apartment.csv";
+        private const string filePath = "../../../Data/Apartment.csv";
 
-        private readonly Serializer<Apartment> _serializer;
-        private readonly List<IObserver> _observers;
-        private List<Apartment> _apartments;
-        private static IApartmentRepository _instance = null;
+        private readonly Serializer<Apartment> serializer;
+        private readonly List<IObserver> observers;
+        private List<Apartment> apartments;
+        private static IApartmentRepository instance = null;
 
         private ApartmentRepository()
         {
-            _serializer = new Serializer<Apartment>();
-            _apartments = new List<Apartment>();
-            _apartments = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            serializer = new Serializer<Apartment>();
+            apartments = new List<Apartment>();
+            apartments = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
 
         }
 
         public static IApartmentRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new ApartmentRepository();
+                instance = new ApartmentRepository();
             }
-            return _instance;
+            return instance;
         }
 
         
         public Apartment Delete(Apartment entity)
         {
-            _apartments.Remove(entity);
+            apartments.Remove(entity);
             Save();
             return entity;
         }
@@ -48,26 +48,26 @@ namespace HotelBookingApp.Repository
         public Apartment Create(Apartment entity)
         {
             entity.Id = NextId();
-            _apartments.Add(entity);
+            apartments.Add(entity);
             Save();
             return entity;
         }
         public List<Apartment> GetAll()
         {
-            return _apartments;
+            return apartments;
         }
 
         public Apartment Get(int id)
         {
-            return _apartments.Find(a => a.Id == id);
+            return apartments.Find(a => a.Id == id);
         }
        
 
         public int NextId()
         {
-            if (_apartments.Count == 0) return 0;
-            int newId = _apartments[_apartments.Count() - 1].Id + 1;
-            foreach (Apartment a in _apartments)
+            if (apartments.Count == 0) return 0;
+            int newId = apartments[apartments.Count() - 1].Id + 1;
+            foreach (Apartment a in apartments)
             {
                 if (newId == a.Id)
                 {
@@ -91,19 +91,19 @@ namespace HotelBookingApp.Repository
 
         public void Unsubscribe(IObserver observer)
         {
-            _observers.Remove(observer);
+            observers.Remove(observer);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _observers.Add(observer);
+            observers.Add(observer);
         }
 
 
         void IApartmentRepository.Create(Apartment entity)
         {
             entity.Id = NextId();
-            _apartments.Add(entity);
+            apartments.Add(entity);
             Save();
             NotifyObservers();
         }
@@ -113,7 +113,7 @@ namespace HotelBookingApp.Repository
             var apartment = Get(entity.Id);
             if (apartment != null)
             {
-                _apartments.Remove(apartment);
+                apartments.Remove(apartment);
                 Save();
                 NotifyObservers();
             }
@@ -122,7 +122,7 @@ namespace HotelBookingApp.Repository
 
         public void NotifyObservers()
         {
-            foreach (var o in _observers)
+            foreach (var o in observers)
             {
                 o.Update();
             }
@@ -130,7 +130,7 @@ namespace HotelBookingApp.Repository
 
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _apartments);
+            serializer.ToCSV(filePath, apartments);
         }
 
     }

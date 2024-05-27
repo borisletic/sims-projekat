@@ -13,25 +13,25 @@ namespace HotelBookingApp.Service
 {
     public class AdministratorService : IAdministratorService
     {
-        private readonly IAdministratorRepository _administratorRepository;
+        private readonly IAdministratorRepository administratorRepository;
         public AdministratorService()
         {
-            _administratorRepository = AdministratorRepository.GetInstance();
+            administratorRepository = AdministratorRepository.GetInstance();
         }
         
         public List<Administrator> GetAll()
         {
-            return _administratorRepository.GetAll();
+            return administratorRepository.GetAll();
         }
 
         public Administrator Get(int id)
         {
-            return _administratorRepository.Get(id);
+            return administratorRepository.Get(id);
         }
 
         public Administrator Update(Administrator entity)
         {
-            return _administratorRepository.Update(entity);
+            return administratorRepository.Update(entity);
         }
         
         public Administrator GetByEmailAndPassword(string email, string password)
@@ -44,7 +44,7 @@ namespace HotelBookingApp.Service
         }
         public void Save()
         {
-            _administratorRepository.Save();
+            administratorRepository.Save();
         }
     }
 }

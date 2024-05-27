@@ -13,95 +13,95 @@ namespace HotelBookingApp.Model
         private Regex NumberOfJmbgRegex = new Regex("[0-9]{13}");
         private Regex PhoneNumberRegex = new Regex("[0-9]{10}");
 
-        private int _id;
-        private string _jmbg;
-        private string _email;
-        private string _password;
-        private string _name;
-        private string _surname;
-        private string _phoneNumber;
+        private int id;
+        private string jmbg;
+        private string email;
+        private string password;
+        private string name;
+        private string surname;
+        private string phoneNumber;
         public bool Blocked { get; set; }
         public int Id
         {
-            get { return _id; }
+            get { return id; }
 
             set
             {
                 if (value != 0)
                 {
-                    _id = value;
+                    id = value;
                 }
             }
         }
         public string Jmbg
         {
-            get { return _jmbg; }
+            get { return jmbg; }
 
             set
             {
                 if (value != null)
                 {
-                    _jmbg = value;
+                    jmbg = value;
                 }
             }
         }
         public string Email
         {
-            get { return _email; }
+            get { return email; }
 
             set
             {
                 if (value != null)
                 {
-                    _email = value;
+                    email = value;
                 }
             }
         }
         public string Password
         {
-            get { return _password; }
+            get { return password; }
 
             set
             {
                 if (value != null)
                 {
-                    _password = value;
+                    password = value;
                 }
             }
         }
         public string Name
         {
-            get { return _name; }
+            get { return name; }
 
             set
             {
                 if (value != null)
                 {
-                    _name = value;
+                    name = value;
                 }
             }
         }
         public string Surname
         {
-            get { return _surname; }
+            get { return surname; }
 
             set
             {
                 if (value != null)
                 {
-                    _surname = value;
+                    surname = value;
                 }
             }
         }
 
         public string PhoneNumber
         {
-            get { return _phoneNumber; }
+            get { return phoneNumber; }
             set
             {
                 if (value != null)
                 {
-                    _phoneNumber = value;
+                    phoneNumber = value;
                 }
             }
         }

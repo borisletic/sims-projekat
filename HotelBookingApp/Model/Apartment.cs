@@ -8,96 +8,96 @@ namespace HotelBookingApp.Model
 {
     public class Apartment : HotelBookingApp.Serializer.ISerializable
     {
-        private int _id;
-        private string _name;
-        private string _description;
-        private int _roomNumber;
-        private int _maxGuestNumber;
-        private int _hotelId;
-        private Hotel _hotel;
+        private int id;
+        private string name;
+        private string description;
+        private int roomNumber;
+        private int maxGuestNumber;
+        private int hotelId;
+        private Hotel hotel;
 
         public int Id
         {
-            get { return _id; }
+            get { return id; }
 
             set
             {
                 if(value != 0)
                 {
-                    _id = value;
+                    id = value;
                 }
             }
         }
         public string Name
         {
-            get { return _name; }
+            get { return name; }
 
             set
             {
                 if(value != null)
                 {
-                    _name = value;
+                    name = value;
                 }
             }
         }
         public string Description
         {
-            get { return _description; }
+            get { return description; }
 
             set
             {
                 if (value != null)
                 {
-                    _description = value;
+                    description = value;
                 }
             }
         }
         public int RoomNumber
         {
-            get { return _roomNumber; }
+            get { return roomNumber; }
 
             set
             {
                 if(value != 0)
                 {
-                    _roomNumber = value;
+                    roomNumber = value;
                 }
             }
         }
         public int MaxGuestNumber
         {
-            get { return _maxGuestNumber; }
+            get { return maxGuestNumber; }
 
             set
             {
                 if (value != 0)
                 {
-                    _maxGuestNumber = value;
+                    maxGuestNumber = value;
                 }
             }
         }
 
         public int HotelId
         {
-            get => _hotelId;
+            get => hotelId;
 
             set
             {
-                if(value != _hotelId)
+                if(value != hotelId)
                 {
-                    _hotelId = value;
+                   hotelId = value;
                 }
             }
         }
         public Hotel Hotel
         {
-            get => _hotel;
+            get => hotel;
 
             set
             {
-                if(value!= _hotel)
+                if(value!= hotel)
                 {
-                    _hotel = value;
+                    hotel = value;
                 }
             }
         }

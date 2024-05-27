@@ -10,44 +10,44 @@ namespace HotelBookingApp.Repository
 {
     public class OwnerRepository : IOwnerRepository
     {
-        private const string _filePath = "../../../Data/Owner.csv";
+        private const string filePath = "../../../Data/Owner.csv";
 
-        private readonly List<IObserver> _observers;
-        private readonly Serializer<Owner> _serializer;
-        private List<Owner> _owners;
-        private static IOwnerRepository _instance = null;
+        private readonly List<IObserver> observers;
+        private readonly Serializer<Owner> serializer;
+        private List<Owner> owners;
+        private static IOwnerRepository instance = null;
 
         public static IOwnerRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new OwnerRepository();
+                instance = new OwnerRepository();
             }
-            return _instance;
+            return instance;
         }
         private OwnerRepository()
         {
-            _serializer = new Serializer<Owner>();
-            _owners = new List<Owner>();
-            _owners = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            serializer = new Serializer<Owner>();
+            owners = new List<Owner>();
+            owners = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
         }
         
         public List<Owner> GetAll()
         {
-            return _owners;
+            return owners;
         }
 
         public Owner Get(int id)
         {
-            return _owners.Find(o => o.Id == id);
+            return owners.Find(o => o.Id == id);
         }
        
 
         public void Create(Owner owner)
         {
             owner.Id = NextId();
-            _owners.Add(owner);
+            owners.Add(owner);
             Save();
         }
 
@@ -68,9 +68,9 @@ namespace HotelBookingApp.Repository
 
         public int NextId()
         {
-            if (_owners.Count == 0) return 0;
-            int newId = _owners[_owners.Count() - 1].Id + 1;
-            foreach (Owner a in _owners)
+            if (owners.Count == 0) return 0;
+            int newId = owners[owners.Count() - 1].Id + 1;
+            foreach (Owner a in owners)
             {
                 if (newId == a.Id)
                 {
@@ -82,7 +82,7 @@ namespace HotelBookingApp.Repository
 
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _owners);
+            serializer.ToCSV(filePath, owners);
         }
 
     }

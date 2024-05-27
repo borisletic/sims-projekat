@@ -12,127 +12,127 @@ namespace HotelBookingApp.Model
         private Regex NumberOfStarsRegex = new Regex("[2-7]{1}");
         private Regex JmbgOfTheOwnerRegex = new Regex("[0-9]{13}");
 
-        private int _id;
-        private string _code;
-        private string _name;
-        private int _constructionYear;
-        Dictionary<int, Apartment> _apartments = new Dictionary<int, Apartment>();
-        private int _starsNumber;
-        private string _jmbgOwner;
-        private int _ownerId;
-        private Owner _owner;
+        private int id;
+        private string code;
+        private string name;
+        private int constructionYear;
+        Dictionary<int, Apartment> apartments = new Dictionary<int, Apartment>();
+        private int starsNumber;
+        private string jmbgOwner;
+        private int ownerId;
+        private Owner owner;
         public bool Accepted { get; set; }
         public int Id
         {
-            get { return _id; }
+            get { return id; }
 
             set
             {
 
                 if (value != 0)
                 {
-                    _id = value;
+                    id = value;
                 }
             }
         }
         public string Code
         {
-            get { return _code; }
+            get { return code; }
 
             set
 
             {
                 if (value != null)
                 {
-                    _code = value;
+                    code = value;
                 }
             }
         }
         public string Name
         {
-            get { return _name; }
+            get { return name; }
 
             set
             {
                 if (value != null)
                 {
-                    _name = value;
+                    name = value;
                 }
             }
         }
 
         public Dictionary<int, Apartment> Apartments
         {
-            get { return _apartments; }
+            get { return apartments; }
 
             set
             {
                 if(value != null)
                 {
-                    _apartments = value;
+                    apartments = value;
                 }
             }
         }
 
         public int ConstructionYear
         {
-            get { return _constructionYear; }
+            get { return constructionYear; }
 
             set
             {
                 if (value != 0)
                 {
-                    _constructionYear = value;
+                    constructionYear = value;
                 }
             }
         }
         public int StarsNumber
         {
-            get { return _starsNumber; }
+            get { return starsNumber; }
 
             set
             {
                 if(value != 0)
                 {
-                    _starsNumber = value;
+                    starsNumber = value;
                 }
             }
         }
 
         public string JmbgOwner
         {
-            get { return _jmbgOwner; }
+            get { return jmbgOwner; }
 
             set
             {
                 if (value != null)
                 {
-                    _jmbgOwner = value;
+                    jmbgOwner = value;
                 }
             }
         }
         public int OwnerId
         {
-            get => _ownerId;
+            get => ownerId;
 
             set
             {
-                if (value != _ownerId)
+                if (value != ownerId)
                 {
-                    _ownerId = value;
+                    ownerId = value;
                 }
             }
         }
 
         public Owner Owner
         {
-            get => _owner;
+            get => owner;
 
             set
             {
-                if (value != _owner)
+                if (value != owner)
                 {
-                    _owner = value;
+                    owner = value;
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace HotelBookingApp.Model
         }
         public Hotel()
         {
-            _apartments = new Dictionary<int, Apartment>();
+            apartments = new Dictionary<int, Apartment>();
         }
 
         public virtual string[] ToCSV()

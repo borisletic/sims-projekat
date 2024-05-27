@@ -13,41 +13,41 @@ namespace HotelBookingApp.Service
 {
     public class HotelService : IHotelService
     {
-        private readonly IHotelRepository _hotelRepository;
-        private readonly IOwnerRepository _ownerRepository;
+        private readonly IHotelRepository hotelRepository;
+        private readonly IOwnerRepository ownerRepository;
         public HotelService()
         {
-            _hotelRepository = HotelRepository.GetInstance();
-            _ownerRepository = OwnerRepository.GetInstance();
+            hotelRepository = HotelRepository.GetInstance();
+            ownerRepository = OwnerRepository.GetInstance();
             BindOwner();
         }
 
-        private void BindOwner()
+        public void BindOwner()
         {
             foreach(var r in GetAll())
             {
-                r.Owner = _ownerRepository.Get(r.OwnerId);
+                r.Owner = ownerRepository.Get(r.OwnerId);
             }
         }
 
         public List<Hotel> GetAll()
         {
-            return _hotelRepository.GetAll();
+            return hotelRepository.GetAll();
         }
 
         public Hotel Get(int id)
         {
-            return _hotelRepository.Get(id);
+            return hotelRepository.Get(id);
         }
 
         public void Update(Hotel entity)
         {
-            _hotelRepository.Update(entity);
+            hotelRepository.Update(entity);
         }
         
         public void Create(Hotel hotel)
         {
-            _hotelRepository.Create(hotel);
+            hotelRepository.Create(hotel);
         }
 
         public List<Apartment> GetAllApartments()
@@ -62,12 +62,12 @@ namespace HotelBookingApp.Service
 
         public void Delete(Hotel hotel)
         {
-            _hotelRepository.Delete(hotel);
+            hotelRepository.Delete(hotel);
         }
 
         public void Save()
         {
-            _hotelRepository.Save();
+            hotelRepository.Save();
         }
     }
 }

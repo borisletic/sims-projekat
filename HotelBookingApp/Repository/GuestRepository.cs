@@ -12,38 +12,38 @@ namespace HotelBookingApp.Repository
 {
     public class GuestRepository : IGuestRepository
     {
-        private const string _filePath = "../../../Data/Guest.csv";
+        private const string filePath = "../../../Data/Guest.csv";
 
-        private readonly Serializer<Guest> _serializer;
-        private List<IObserver> _observers;
-        private List<Guest> _guests;
-        private static IGuestRepository _instance = null;
+        private readonly Serializer<Guest> serializer;
+        private List<IObserver> observers;
+        private List<Guest> guests;
+        private static IGuestRepository instance = null;
 
         public static IGuestRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new GuestRepository();
+                instance = new GuestRepository();
             }
-            return _instance;
+            return instance;
         }
 
         private GuestRepository()
         {
-            _serializer = new Serializer<Guest>();
-            _guests = new List<Guest>();
-            _guests = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            serializer = new Serializer<Guest>();
+            guests = new List<Guest>();
+            guests = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
         }
 
         public List<Guest> GetAll()
         {
-            return _guests;
+            return guests;
         }
 
         public Guest Get(int id)
         {
-            return _guests.Find(o => o.Id == id);
+            return guests.Find(o => o.Id == id);
         }
 
         
@@ -61,7 +61,7 @@ namespace HotelBookingApp.Repository
 
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _guests);
+            serializer.ToCSV(filePath, guests);
         }
 
     }

@@ -12,34 +12,34 @@ namespace HotelBookingApp.Repository
 {
     public class ReservationRepository : IReservationRepository
     {
-        private const string _filePath = "../../../Data/Reservation.csv";
+        private const string filePath = "../../../Data/Reservation.csv";
 
-        private readonly List<IObserver> _observers;
-        private readonly Serializer<Reservation> _serializer;
-        private List<Reservation> _reservations;
-        private static IReservationRepository _instance = null;
+        private readonly List<IObserver> observers;
+        private readonly Serializer<Reservation> serializer;
+        private List<Reservation> reservations;
+        private static IReservationRepository instance = null;
 
         public static IReservationRepository GetInstance()
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = new ReservationRepository();
+                instance = new ReservationRepository();
             }
-            return _instance;
+            return instance;
         }
         private ReservationRepository()
         {
-            _reservations = new List<Reservation>();
-            _serializer = new Serializer<Reservation>();
-            _reservations = _serializer.FromCSV(_filePath);
-            _observers = new List<IObserver>();
+            reservations = new List<Reservation>();
+            serializer = new Serializer<Reservation>();
+            reservations = serializer.FromCSV(filePath);
+            observers = new List<IObserver>();
         }
            
 
         public void Create(Reservation entity)
         {
             entity.Id = NextId();
-            _reservations.Add(entity);
+            reservations.Add(entity);
             Save();
             NotifyObservers();
         }
@@ -52,20 +52,20 @@ namespace HotelBookingApp.Repository
         
         public List<Reservation> GetAll()
         {
-            return _reservations.FindAll(r => r.Deleted == false);
+            return reservations.FindAll(r => r.Deleted == false);
         }
 
         public Reservation Get(int id)
         {
-            return _reservations.Find(r => r.Id == id && r.Deleted == false);
+            return reservations.Find(r => r.Id == id && r.Deleted == false);
         }
 
         public int NextId()
         {
-            if (_reservations.Count == 0)
+            if (reservations.Count == 0)
                 return 0;
-            int nextId = _reservations[_reservations.Count - 1].Id + 1;
-            foreach (Reservation r in _reservations)
+            int nextId = reservations[reservations.Count - 1].Id + 1;
+            foreach (Reservation r in reservations)
             {
                 if (nextId == r.Id)
                 {
@@ -76,7 +76,7 @@ namespace HotelBookingApp.Repository
         }
         public void NotifyObservers()
         {
-            foreach (var observer in _observers)
+            foreach (var observer in observers)
             {
                 observer.Update();
             }
@@ -97,17 +97,17 @@ namespace HotelBookingApp.Repository
 
         public void Subscribe(IObserver observer)
         {
-            _observers.Add(observer);
+            observers.Add(observer);
         }
         public void Unsubscribe(IObserver observer)
         {
-            _observers.Remove(observer);
+            observers.Remove(observer);
         }
 
 
         public void Save()
         {
-            _serializer.ToCSV(_filePath, _reservations);
+            serializer.ToCSV(filePath, reservations);
         }
 
     }

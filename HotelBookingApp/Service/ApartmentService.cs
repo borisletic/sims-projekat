@@ -14,12 +14,12 @@ namespace HotelBookingApp.Service
 {
     public class ApartmentService : IApartmentService
     {
-        private readonly IApartmentRepository _apartmentRepository;
-        private readonly IHotelRepository _hotelRepository;
+        private readonly IApartmentRepository apartmentRepository;
+        private readonly IHotelRepository hotelRepository;
         public ApartmentService()
         {
-            _apartmentRepository = ApartmentRepository.GetInstance();
-            _hotelRepository = HotelRepository.GetInstance();
+            apartmentRepository = ApartmentRepository.GetInstance();
+            hotelRepository = HotelRepository.GetInstance();
             BindHotel();
         }
 
@@ -27,7 +27,7 @@ namespace HotelBookingApp.Service
         {
             foreach(var a in GetAll())
             {
-                Hotel h = _hotelRepository.Get(a.HotelId);
+                Hotel h = hotelRepository.Get(a.HotelId);
                 a.Hotel = h;
                 h.Apartments.Add(a.Id, a);
             }
@@ -35,25 +35,25 @@ namespace HotelBookingApp.Service
         
         public List<Apartment> GetAll()
         {
-            return _apartmentRepository.GetAll();
+            return apartmentRepository.GetAll();
         }
 
         public Apartment Get(int id)
         {
-            return _apartmentRepository.Get(id);
+            return apartmentRepository.Get(id);
         }
 
         public void Create(Apartment entity)
         {
-            _apartmentRepository.Create(entity);
+            apartmentRepository.Create(entity);
         }
         public void Delete(Apartment entity)
         {
-            _apartmentRepository.Delete(entity);
+            apartmentRepository.Delete(entity);
         }
         public Apartment Update(Apartment entity)
         {
-            return _apartmentRepository.Update(entity);
+            return apartmentRepository.Update(entity);
         }
         
         void IService<Apartment>.Update(Apartment entity)
@@ -63,7 +63,7 @@ namespace HotelBookingApp.Service
 
         public void Save()
         {
-            _apartmentRepository.Save();
+            apartmentRepository.Save();
         }
 
     }
