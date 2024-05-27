@@ -1,28 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace HotelBookingApp.Validation
 {
     public class EmailValidationRule : ValidationRule
     {
+        // Compiling the regex once for better performance
+        private static readonly Regex EmailRegex = new Regex(
+            @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+            RegexOptions.Compiled);
+
+        /// <summary>
+        /// Validates the specified value against the email pattern.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns>A ValidationResult indicating whether the value is valid.</returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string input = value as string;
-
-            if (string.IsNullOrWhiteSpace(input))
+            if (value is not string input || string.IsNullOrWhiteSpace(input))
             {
                 return new ValidationResult(false, "Field is required");
             }
 
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
-            if(!Regex.IsMatch(input, pattern))
+            if (!EmailRegex.IsMatch(input))
             {
                 return new ValidationResult(false, "Invalid email format");
             }

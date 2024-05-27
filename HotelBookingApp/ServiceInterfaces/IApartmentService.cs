@@ -1,5 +1,4 @@
 ﻿using HotelBookingApp.Model;
-using HotelBookingApp.Observer;
 
 namespace HotelBookingApp.ServiceInterfaces
 {

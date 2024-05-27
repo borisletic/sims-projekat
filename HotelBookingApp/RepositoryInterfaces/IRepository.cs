@@ -1,8 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 
 namespace HotelBookingApp.RepositoryInterfaces

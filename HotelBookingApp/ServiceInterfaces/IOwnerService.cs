@@ -1,5 +1,4 @@
-﻿using HotelBookingApp.Observer;
-using HotelBookingApp.Model;
+﻿using HotelBookingApp.Model;
 
 
 namespace HotelBookingApp.ServiceInterfaces

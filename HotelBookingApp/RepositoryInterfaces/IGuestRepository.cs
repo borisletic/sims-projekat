@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using HotelBookingApp.Model;
+﻿using HotelBookingApp.Model;
 
 
 namespace HotelBookingApp.RepositoryInterfaces

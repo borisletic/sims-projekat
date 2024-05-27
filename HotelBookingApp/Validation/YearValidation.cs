@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace HotelBookingApp.Validation
 {
     public class YearValidation : ValidationRule
     {
+        /// <summary>
+        /// Validates the specified value to ensure it is a valid year.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="cultureInfo">The culture information.</param>
+        /// <returns>A ValidationResult indicating whether the value is valid.</returns>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+            if (value is not string yearStr || string.IsNullOrWhiteSpace(yearStr))
             {
                 return new ValidationResult(false, "Please enter a year.");
             }
 
-            string yearStr = value.ToString();
-
-            if (yearStr.Length > 4)
-            {
-                return new ValidationResult(false, "Invalid year format. Try: 1998, 2024...");
-            }
-
-            if (!int.TryParse(yearStr, out int year))
+            if (yearStr.Length > 4 || !int.TryParse(yearStr, out int year))
             {
                 return new ValidationResult(false, "Invalid year format. Try: 1998, 2024...");
             }

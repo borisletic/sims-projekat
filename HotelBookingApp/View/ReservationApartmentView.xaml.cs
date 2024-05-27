@@ -1,7 +1,5 @@
 ﻿using HotelBookingApp.Controller;
 using HotelBookingApp.Model;
-using HotelBookingApp.ServiceInterfaces;
-using HotelBookingApp.Util;
 using System;
 using System.ComponentModel;
 using System.Windows;
