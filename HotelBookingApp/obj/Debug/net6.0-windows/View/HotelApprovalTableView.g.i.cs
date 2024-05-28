@@ -61,7 +61,7 @@ namespace HotelBookingApp.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HotelBookingApp;V1.0.0.0;component/view/hotelapprovaltableview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HotelBookingApp;component/view/hotelapprovaltableview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\HotelApprovalTableView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
