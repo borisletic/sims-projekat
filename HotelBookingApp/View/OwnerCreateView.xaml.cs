@@ -1,13 +1,12 @@
 ﻿using HotelBookingApp.Model;
 using System.Windows;
 using HotelBookingApp.Controller;
+using System.Linq;
 
 namespace HotelBookingApp.View
 {
-
     public partial class OwnerCreateView : Window
     {
-
         private readonly OwnerController ownerController;
         private readonly AdministratorController administratorController;
         private readonly GuestController guestController;
@@ -34,16 +33,17 @@ namespace HotelBookingApp.View
 
         private void CreateOwner(object sender, RoutedEventArgs e)
         {
-            var tmp = ownerController.GetAll().Find(o => o.Email == Email || o.Jmbg == JMBG);
+            // Check if the email or JMBG already exists
+            var existingOwner = ownerController.GetAll().FirstOrDefault(o => o.Email == Email || o.Jmbg == JMBG);
 
-            if (tmp != null)
+            if (existingOwner != null)
             {
                 MessageBox.Show("Try again. Email or JMBG already exists", "Alert");
-
                 return;
             }
 
-            Owner owner = new Owner
+            // Create a new owner
+            var owner = new Owner
             {
                 Jmbg = JMBG,
                 Email = Email,
@@ -55,10 +55,15 @@ namespace HotelBookingApp.View
 
             ownerController.Create(owner);
 
+            // Add the new owner to the Users collection in AllUsersView
             AllUsersView.Users.Add(owner);
 
             this.Close();
         }
 
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }

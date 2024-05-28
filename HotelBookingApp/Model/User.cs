@@ -3,8 +3,10 @@
 
 namespace HotelBookingApp.Model
 {
+    // User class implementing ISerializable interface from HotelBookingApp.Serializer namespace
     public class User : HotelBookingApp.Serializer.ISerializable
-    {        
+    {
+        // Private fields to store user information
         private int id;
         private string jmbg;
         private string email;
@@ -13,11 +15,13 @@ namespace HotelBookingApp.Model
         private string surname;
         private string phoneNumber;
 
+        // Public property to indicate if the user is blocked
         public bool Blocked { get; set; }
+
+        // Public property for Id with a validation in the setter
         public int Id
         {
             get { return id; }
-
             set
             {
                 if (value != 0)
@@ -26,10 +30,11 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        // Public property for JMBG with a validation in the setter
         public string Jmbg
         {
             get { return jmbg; }
-
             set
             {
                 if (value != null)
@@ -39,10 +44,10 @@ namespace HotelBookingApp.Model
             }
         }
 
+        // Public property for Name with a validation in the setter
         public string Name
         {
             get { return name; }
-
             set
             {
                 if (value != null)
@@ -51,10 +56,11 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        // Public property for Surname with a validation in the setter
         public string Surname
         {
             get { return surname; }
-
             set
             {
                 if (value != null)
@@ -64,10 +70,10 @@ namespace HotelBookingApp.Model
             }
         }
 
+        // Public property for PhoneNumber with a validation in the setter
         public string PhoneNumber
         {
             get { return phoneNumber; }
-
             set
             {
                 if (value != null)
@@ -77,11 +83,10 @@ namespace HotelBookingApp.Model
             }
         }
 
-
+        // Public property for Email with a validation in the setter
         public string Email
         {
             get { return email; }
-
             set
             {
                 if (value != null)
@@ -90,10 +95,11 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        // Public property for Password with a validation in the setter
         public string Password
         {
             get { return password; }
-
             set
             {
                 if (value != null)
@@ -103,12 +109,12 @@ namespace HotelBookingApp.Model
             }
         }
 
+        // Default constructor
         public User()
         {
-
         }
 
-
+        // Parameterized constructor to initialize all properties
         public User(int id, string jmbg, string email, string password, string name, string surname, string phoneNumber)
         {
             Id = id;
@@ -120,7 +126,7 @@ namespace HotelBookingApp.Model
             PhoneNumber = phoneNumber;
         }
 
-
+        // Method to convert user data to a CSV string array
         public virtual string[] ToCSV()
         {
             string[] csvValues =
@@ -137,6 +143,7 @@ namespace HotelBookingApp.Model
             return csvValues;
         }
 
+        // Method to populate user data from a CSV string array
         public virtual void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -150,3 +157,4 @@ namespace HotelBookingApp.Model
         }
     }
 }
+

@@ -8,45 +8,49 @@ using System.Windows.Input;
 
 namespace HotelBookingApp.View
 {
-    
     public partial class HotelApprovalTableView : Window
     {
         public Hotel SelectedHotel { get; set; }
 
-        public static ObservableCollection<Hotel> Hotels { get; set; }
+        public static ObservableCollection<Hotel> Hotels { get; } = new ObservableCollection<Hotel>();
 
         private readonly HotelController hotelController;
 
         public HotelApprovalTableView()
         {
             InitializeComponent();
-
-            this.DataContext = this;
-
+            DataContext = this;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            
             hotelController = new HotelController();
+            LoadUnapprovedHotels();
+        }
 
-            Hotels = new ObservableCollection<Hotel>(hotelController.GetAll().Where(hotel => !hotel.Accepted && MainWindow.LogInUser.Jmbg == hotel.JmbgOwner));
+        private void LoadUnapprovedHotels()
+        {
+            Hotels.Clear();
+            var unapprovedHotels = hotelController.GetAll().Where(hotel => !hotel.Accepted && MainWindow.LogInUser.Jmbg == hotel.JmbgOwner);
+            foreach (var hotel in unapprovedHotels)
+            {
+                Hotels.Add(hotel);
+            }
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
-            HotelView hotelview = new HotelView(MainWindow.LogInUser);
-
-            hotelview.Show();
-
-            this.Close();
+            var hotelView = new HotelView(MainWindow.LogInUser);
+            hotelView.Show();
+            Close();
         }
 
         private void OpenSelectedHotel(object sender, MouseButtonEventArgs e)
         {
-            HotelApprovalView hotelapproval = new HotelApprovalView(SelectedHotel);
-
-            hotelapproval.Show();
+            if (SelectedHotel != null)
+            {
+                var hotelApproval = new HotelApprovalView(SelectedHotel);
+                hotelApproval.Show();
+            }
         }
-
-        
     }
 }
+

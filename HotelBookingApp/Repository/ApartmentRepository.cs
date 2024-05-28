@@ -5,7 +5,6 @@ using HotelBookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace HotelBookingApp.Repository
 {
     public class ApartmentRepository : IApartmentRepository
@@ -23,11 +22,10 @@ namespace HotelBookingApp.Repository
         {
             serializer = new Serializer<Apartment>();
 
-            apartments = new List<Apartment>();
+            // Load apartments from CSV file
             apartments = serializer.FromCSV(filePath);
 
             observers = new List<IObserver>();
-
         }
 
         public static IApartmentRepository GetInstance()
@@ -40,77 +38,83 @@ namespace HotelBookingApp.Repository
             return instance;
         }
 
-        
+        // Deletes an apartment from the repository
         public Apartment Delete(Apartment entity)
         {
             apartments.Remove(entity);
-            Save();
+            Save(); // Save changes to file
 
             return entity;
         }
 
+        // Creates a new apartment in the repository
         public Apartment Create(Apartment entity)
         {
-            entity.Id = NextId();
-
+            entity.Id = NextId(); // Assign a unique ID
             apartments.Add(entity);
-            Save();
+            Save(); // Save changes to file
 
             return entity;
         }
+
+        // Retrieves all apartments from the repository
         public List<Apartment> GetAll()
         {
             return apartments;
         }
 
+        // Retrieves an apartment by ID
         public Apartment Get(int id)
         {
             return apartments.Find(a => a.Id == id);
         }
-       
 
+        // Generates the next available ID for a new apartment
         public int NextId()
         {
             if (apartments.Count == 0) return 0;
 
-            int newId = apartments[apartments.Count() - 1].Id + 1;
-
-            foreach (Apartment apartment in apartments)
-            {
-                if (newId == apartment.Id)
-                {
-                    newId++;
-                }
-            }
+            int newId = apartments.Max(a => a.Id) + 1;
 
             return newId;
         }
-        
+
+        // Updates an existing apartment in the repository
         public Apartment Update(Apartment entity)
         {
             var oldEntity = Get(entity.Id);
 
             if (oldEntity == null)
             {
-                return null;
+                return null; // Apartment not found
             }
 
-            oldEntity = entity;
-            Save();
+            oldEntity = entity; // Update existing apartment
+            Save(); // Save changes to file
 
             return oldEntity;
         }
 
+        // Unsubscribes an observer from receiving updates
         public void Unsubscribe(IObserver observer)
         {
             observers.Remove(observer);
         }
 
+        // Subscribes an observer to receive updates
         public void Subscribe(IObserver observer)
         {
             observers.Add(observer);
         }
 
+        // Notifies all observers of changes
+        public void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.Update();
+            }
+        }
 
         void IApartmentRepository.Create(Apartment entity)
         {
@@ -136,18 +140,11 @@ namespace HotelBookingApp.Repository
         }
 
 
-        public void NotifyObservers()
-        {
-            foreach (var observer in observers)
-            {
-                observer.Update();
-            }
-        }
-
+        // Saves the current state of the repository to the file
         public void Save()
         {
             serializer.ToCSV(filePath, apartments);
         }
-
     }
 }
+

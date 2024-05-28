@@ -8,10 +8,8 @@ using System.Windows;
 
 namespace HotelBookingApp
 {
-
     public partial class MainWindow : Window
     {
-
         private readonly OwnerController _ownerController;
         private readonly GuestController _guestController;
         private readonly AdministratorController _administratorController;
@@ -28,7 +26,6 @@ namespace HotelBookingApp
 
             this.DataContext = this;
 
-            
             _ownerController = new OwnerController();
             _guestController = new GuestController();
             _administratorController = new AdministratorController();
@@ -48,17 +45,13 @@ namespace HotelBookingApp
             if (!isValid)
             {
                 emailErrorText.Text = "Invalid email or password format";
-
                 emailErrorText.Visibility = Visibility.Visible;
-
                 failureNumber++;
 
                 if (failureNumber >= 3)
                 {
                     MessageBox.Show("Three failed attempts. Closing the program.", "Error");
-
                     Close();
-
                     return;
                 }
             }
@@ -76,16 +69,10 @@ namespace HotelBookingApp
                     if (LogInUser.Blocked)
                     {
                         MessageBox.Show("User is blocked", "Warning!");
-
                         return;
                     }
 
-                    HotelView hv = new HotelView(LogInUser);
-
-                    hv.Show();
-
-                    Close();
-
+                    OpenHotelView(LogInUser);
                     return;
                 }
 
@@ -96,16 +83,10 @@ namespace HotelBookingApp
                     if (LogInUser.Blocked)
                     {
                         MessageBox.Show("User is blocked", "Warning!");
-
                         return;
                     }
 
-                    HotelView hv = new HotelView(LogInUser);
-
-                    hv.Show();
-
-                    Close();
-
+                    OpenHotelView(LogInUser);
                     return;
                 }
 
@@ -119,29 +100,24 @@ namespace HotelBookingApp
                         return;
                     }
 
-                    AllUsersView auv = new AllUsersView();
-
-                    auv.Show();
-
-                    Close();
-
+                    OpenAllUsersView();
                     return;
                 }
             }
         }
 
-        private void ApartmentView(object sender, RoutedEventArgs e)
+        private void OpenHotelView(User user)
         {
-            Guest guest = GuestRepository.GetInstance().Get(0);
+            HotelView hv = new HotelView(user);
+            hv.Show();
+            Close();
         }
 
-        private void HotelView(object sender, RoutedEventArgs e)
+        private void OpenAllUsersView()
         {
-            Guest guest = GuestRepository.GetInstance().Get(0);
-
-            HotelView hv = new HotelView(guest);
-
-            hv.Show();
+            AllUsersView auv = new AllUsersView();
+            auv.Show();
+            Close();
         }
 
         private bool ValidatePassword(string password)
@@ -149,16 +125,12 @@ namespace HotelBookingApp
             return password.Length >= 3;
         }
 
-        bool ValidateEmail(string email)
+        private bool ValidateEmail(string email)
         {
             string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
-
             Regex regex = new Regex(pattern);
-
             return regex.IsMatch(email);
         }
-
-
-
     }
 }
+

@@ -8,46 +8,52 @@
         Title="Users" Height="500" Width="850">
     <Grid>
         <DockPanel>
-            
-            <WrapPanel DockPanel.Dock="Top" Height="80" >
-                
+
+            <!-- WrapPanel for user type selection, filtering, sorting, and actions -->
+            <WrapPanel DockPanel.Dock="Top" Height="80">
+
+                <!-- ComboBox for user type selection -->
                 <ComboBox x:Name="myTextBox" Margin="20,20,0,0" ItemsSource="{Binding UserType}" SelectedItem="{Binding SelectedUser}" Height="22" Width="130"/>
+
+                <!-- Buttons for filtering, clearing, sorting by name, and creating owner -->
                 <Button Click="FilterClick" Margin="8,20,0,0" Content="Search" Height="22" Width="50" />
                 <Button Click="ClearClick" Margin="8,20,0,0" Content="Clear" Height="22" Width="50" />
-
                 <Button Click="SortByName" Height="22" Content="Name (A-Z)" Margin="48,20,0,0"/>
                 <Button Click="SortBySurname" Height="22" Content="Surname (A-Z)" Margin="8,20,0,0"/>
-                
                 <Button Margin="138,20,0,0" Click="CreateOwnerClick" Content="Create Owner" Height="22" />
+
+                <!-- Buttons for accessing hotels, blocking, and unblocking users -->
                 <Button Margin="8,20,0,0" Click="HotelsClick" Content="Hotels" Height="22"  Width="50" />
-                <Button Margin="8,20,0,0" Click="Block" Height="22"> Block </Button>
+                <Button Margin="8,20,0,0" Click="Block" Height="22">Block</Button>
                 <Button Margin="733,5,0,0" Click="Unblock" Height="22">Unblock</Button>
                 <Button Click="SortByNameReversed" Content="Name (Z-A)" Height="22" Margin="315,-20,50,0"/>
                 <Button Click="SortBySurnameReversed" Content="Surname (Z-A)" Height="22" Margin="389,-22,50,0"/>
 
             </WrapPanel>
 
+            <!-- DataGrid for displaying user information -->
             <DataGrid DockPanel.Dock="Bottom" 
                       ItemsSource="{Binding Path=Users, UpdateSourceTrigger=PropertyChanged}"
                       AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding ChosenUser}"
                       Width="740" Height="314"
                       x:Name="MyDataGrid">
-                
+
                 <DataGrid.Columns>
-                    
+
+                    <!-- Columns for JMBG, Email, Name, Surname, Phone number, and Blocked status -->
                     <DataGridTextColumn  Header="JMBG" Binding="{Binding Jmbg}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Email" Binding="{Binding Email}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Name" Binding="{Binding Name}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Surname" Binding="{Binding Surname}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Phone number" Binding="{Binding PhoneNumber}" Width="120"></DataGridTextColumn>
                     <DataGridTextColumn  Header="Blocked" Binding="{Binding Blocked}" Width="110"></DataGridTextColumn>
-                    
+
                 </DataGrid.Columns>
-                
+
             </DataGrid>
-        
 
         </DockPanel>
 
     </Grid>
 </Window>
+

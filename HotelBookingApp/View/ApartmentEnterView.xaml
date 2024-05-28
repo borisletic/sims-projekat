@@ -1,4 +1,5 @@
-﻿<Window x:Class="HotelBookingApp.View.ApartmentEnterView"
+﻿<!-- Apartment Enter View Window -->
+<Window x:Class="HotelBookingApp.View.ApartmentEnterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,217 +8,183 @@
         xmlns:val="clr-namespace:HotelBookingApp.Validation"
         mc:Ignorable="d"
         Title="Apartment" Height="300" Width="350">
+
+    <!-- Resource Section -->
     <Window.Resources>
-        
+
+        <!-- Validation Template -->
         <ControlTemplate x:Key="ValidationTemplate">
-            
+
+            <!-- StackPanel for error display -->
             <StackPanel>
-                
+
+                <!-- Placeholder for adorned element -->
                 <AdornedElementPlaceholder x:Name="textBox" />
+
+                <!-- TextBlock for displaying error content -->
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
-                
+
             </StackPanel>
-            
+
         </ControlTemplate>
-        
+
     </Window.Resources>
-    
+
+    <!-- Main Grid Layout -->
     <Grid>
-        
+
+        <!-- TextBlocks for apartment details -->
         <TextBlock HorizontalAlignment="Left" Margin="45,51,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="53"/>
         <TextBlock HorizontalAlignment="Left" Margin="45,91,0,0" TextWrapping="Wrap" Text="Room number" VerticalAlignment="Top" Width="85"/>
         <TextBlock HorizontalAlignment="Left" Margin="45,131,0,0" TextWrapping="Wrap" Text="Guest number" VerticalAlignment="Top" Width="84"/>
         <TextBlock HorizontalAlignment="Left" Margin="45,171,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="67"/>
 
+        <!-- Button for creating apartment -->
         <Button Click="CreateApartment" Content="Create" HorizontalAlignment="Left" Margin="190,240,0,0" VerticalAlignment="Top" Height="22" Width="46"/>
 
+        <!-- TextBox for apartment name -->
         <TextBox HorizontalAlignment="Left" Margin="143,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
             <TextBox.Text>
-
+                <!-- Data Binding with validation -->
                 <Binding Path="ApartmentName" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
                     <Binding.ValidationRules>
-                        
+                        <!-- Validation rules for string and required field -->
                         <val:StringValidationRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
-                        
                     </Binding.ValidationRules>
-                    
                 </Binding>
-                
             </TextBox.Text>
+            <!-- Error template for validation error -->
             <Validation.ErrorTemplate>
-                
                 <ControlTemplate>
-                    
+                    <!-- Grid layout for error display -->
                     <Grid>
-                        
                         <Grid.RowDefinitions>
-                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
-                            
                         </Grid.RowDefinitions>
-                        
                         <Grid.ColumnDefinitions>
-                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
-                            
                         </Grid.ColumnDefinitions>
-                        
+                        <!-- Placeholder for adorned element -->
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                        <!-- TextBlock for displaying error content -->
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
-                        
                     </Grid>
-                    
                 </ControlTemplate>
-                
             </Validation.ErrorTemplate>
-            
         </TextBox>
-        
+
+        <!-- TextBox for room number -->
         <TextBox HorizontalAlignment="Left" Margin="143,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
             <TextBox.Text>
+                <!-- Data Binding with validation -->
                 <Binding Path="RoomNumber" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
                     <Binding.ValidationRules>
+                        <!-- Validation rules for integer and required field -->
                         <val:IntegerValidation ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
+            <!-- Error template for validation error -->
             <Validation.ErrorTemplate>
-                
                 <ControlTemplate>
-                    
+                    <!-- Grid layout for error display -->
                     <Grid>
-                        
                         <Grid.RowDefinitions>
-                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
-                            
                         </Grid.RowDefinitions>
-                        
                         <Grid.ColumnDefinitions>
-                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
-                            
                         </Grid.ColumnDefinitions>
-                        
+                        <!-- Placeholder for adorned element -->
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
-                        
+                        <!-- TextBlock for displaying error content -->
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
-                   
                     </Grid>
-                    
                 </ControlTemplate>
-                
             </Validation.ErrorTemplate>
-            
         </TextBox>
-        
+
+        <!-- TextBox for guest number -->
         <TextBox HorizontalAlignment="Left" Margin="143,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="22">
-  
             <TextBox.Text>
-                
+                <!-- Data Binding with validation -->
                 <Binding Path="MaxGuestNumber" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
-                   
                     <Binding.ValidationRules>
-                        
+                        <!-- Validation rules for integer and required field -->
                         <val:IntegerValidation ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
-                        
                     </Binding.ValidationRules>
-                    
                 </Binding>
-                
             </TextBox.Text>
-            
+            <!-- Error template for validation error -->
             <Validation.ErrorTemplate>
-                
                 <ControlTemplate>
-                    
+                    <!-- Grid layout for error display -->
                     <Grid>
-                        
                         <Grid.RowDefinitions>
-                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
-                            
                         </Grid.RowDefinitions>
-                        
                         <Grid.ColumnDefinitions>
-                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
-                            
                         </Grid.ColumnDefinitions>
-                        
+                        <!-- Placeholder for adorned element -->
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
-                        
+                        <!-- TextBlock for displaying error content -->
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
-                   
                     </Grid>
-                    
                 </ControlTemplate>
-                
             </Validation.ErrorTemplate>
-            
         </TextBox>
-        
+
+        <!-- TextBox for description -->
         <TextBox HorizontalAlignment="Left" Margin="143,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="53">
-           
             <TextBox.Text>
-                
+                <!-- Data Binding with validation -->
                 <Binding Path="Description" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" StringFormat='{}{0:#}'>
-                   
                     <Binding.ValidationRules>
-                        
+                        <!-- Validation rules for string and required field -->
                         <val:StringValidationRule ValidationStep="RawProposedValue"/>
                         <val:RequiredFieldValidation ValidationStep="RawProposedValue"/>
-                        
                     </Binding.ValidationRules>
-                    
                 </Binding>
-                
             </TextBox.Text>
-            
+            <!-- Error template for validation error -->
             <Validation.ErrorTemplate>
-                
                 <ControlTemplate>
-                    
+                    <!-- Grid layout for error display -->
                     <Grid>
-                        
                         <Grid.RowDefinitions>
-                            
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
-                            
                         </Grid.RowDefinitions>
-                        
                         <Grid.ColumnDefinitions>
-                            
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
-                            
                         </Grid.ColumnDefinitions>
-                        
+                        <!-- Placeholder for adorned element -->
                         <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
-                        
+                        <!-- TextBlock for displaying error content -->
                         <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="red" FontSize="6" Margin="0,2,0,0"/>
-                    
                     </Grid>
-                    
                 </ControlTemplate>
-                
             </Validation.ErrorTemplate>
-            
         </TextBox>
-        
+
+
+        <!-- ComboBox for selecting hotel -->
         <ComboBox ItemsSource="{Binding Hotels}" SelectedItem="{Binding SelectedHotel, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"  HorizontalAlignment="Left" Margin="143,11,0,0" VerticalAlignment="Top" Width="140" Height="22"/>
-        
+
+        <!-- TextBlock for hotel name -->
         <TextBlock HorizontalAlignment="Left" Margin="45,11,0,0" TextWrapping="Wrap" Text="Hotel name" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
+

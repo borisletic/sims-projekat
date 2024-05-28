@@ -1,4 +1,6 @@
-﻿<Window x:Class="HotelBookingApp.View.ReservationsForOwner"
+﻿<!-- ReservationsForOwner.xaml -->
+
+<Window x:Class="HotelBookingApp.View.ReservationsForOwner"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,35 +9,55 @@
         xmlns:val="clr-namespace:HotelBookingApp.Validation"
         mc:Ignorable="d"
         Title="Reservations" Height="450" Width="800">
-    
+
+    <!-- Main grid layout -->
     <Grid>
-        
+
+        <!-- WrapPanel for filter options -->
         <WrapPanel  Margin="94,22,86,365" DockPanel.Dock="Top">
-            
+
+            <!-- ComboBox for filter selection -->
             <ComboBox x:Name="myTextBox" Width="130" Height="22" ItemsSource="{Binding Filters}" SelectedItem="{Binding SelectedFilter}"/>
+
+            <!-- Button to apply filter -->
             <Button Content="Search" Click="Filter" Width="50" Margin="8,0,0,0"/>
+
+            <!-- Button to clear filter -->
             <Button Click="Clear" Content="Clear" Margin="8,0,0,0" Height="22" Width="50"/>
-            <TextBlock Margin="08,25,8,0" x:Name="textErrorText" Foreground="Red" Visibility="Collapsed"/>
+
+            <!-- TextBlock for error message -->
+            <TextBlock Margin="8,25,8,0" x:Name="textErrorText" Foreground="Red" Visibility="Collapsed"/>
 
         </WrapPanel>
-        
+
+        <!-- DataGrid to display reservations -->
         <DataGrid DockPanel.Dock="Bottom" 
                   ItemsSource="{Binding Path=Reservations, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}"
                   Width="613" Margin="94,74,94,66" MouseDoubleClick="ReservationsClick" >
 
+            <!-- Columns of the DataGrid -->
             <DataGrid.Columns>
-                
+
+                <!-- Column for Hotel name -->
                 <DataGridTextColumn  Header="Hotel" Binding="{Binding Apartment.Hotel.Name}" Width="120"></DataGridTextColumn>
+
+                <!-- Column for Apartment name -->
                 <DataGridTextColumn  Header="Apartment" Binding="{Binding Apartment.Name}" Width="120"></DataGridTextColumn>
+
+                <!-- Column for reservation date -->
                 <DataGridTextColumn  Header="Date" Binding="{Binding StartDate, StringFormat=\{0:dd.MM.yyyy\}}" Width="120"></DataGridTextColumn>
+
+                <!-- Column for reservation status -->
                 <DataGridTextColumn  Header="Status" Binding="{Binding Status}" Width="130"></DataGridTextColumn>
+
+                <!-- Column for reason/comment -->
                 <DataGridTextColumn  Header="Reason" Binding="{Binding Comment}" Width="115"></DataGridTextColumn>
-            
+
             </DataGrid.Columns>
-            
+
         </DataGrid>
-        
+
     </Grid>
-    
+
 </Window>

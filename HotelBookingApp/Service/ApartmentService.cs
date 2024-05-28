@@ -12,23 +12,20 @@ namespace HotelBookingApp.Service
     {
         private readonly IApartmentRepository apartmentRepository;
         private readonly IHotelRepository hotelRepository;
+
+        // Constructor injection of the apartment and hotel repositories
         public ApartmentService()
         {
             apartmentRepository = ApartmentRepository.GetInstance();
             hotelRepository = HotelRepository.GetInstance();
 
+            // Bind each apartment to its corresponding hotel
             BindHotel();
         }
 
+        // Binds each apartment to its corresponding hotel
         public void BindHotel()
         {
-            ///foreach(var a in GetAll())
-            ///{
-            ///Hotel hotel = hotelRepository.Get(a.HotelId);
-            ///a.Hotel = hotel;
-
-            ///hotel.Apartments.Add(a.Id, a);
-            ///}
             foreach (var a in GetAll())
             {
                 Hotel hotel = hotelRepository.Get(a.HotelId);
@@ -49,35 +46,44 @@ namespace HotelBookingApp.Service
                 }
             }
         }
-        
+
+        // Retrieves all apartments
         public List<Apartment> GetAll()
         {
             return apartmentRepository.GetAll();
         }
 
+        // Retrieves an apartment by ID
         public Apartment Get(int id)
         {
             return apartmentRepository.Get(id);
         }
 
+        // Creates a new apartment
         public void Create(Apartment entity)
         {
             apartmentRepository.Create(entity);
         }
+
+        // Deletes an apartment
         public void Delete(Apartment entity)
         {
             apartmentRepository.Delete(entity);
         }
+
+        // Updates an existing apartment
         public Apartment Update(Apartment entity)
         {
             return apartmentRepository.Update(entity);
         }
-        
+
+        // Explicitly implemented Update method from IService interface
         void IService<Apartment>.Update(Apartment entity)
         {
             Update(entity);
         }
 
+        // Saves changes made to apartments
         public void Save()
         {
             apartmentRepository.Save();
@@ -85,3 +91,4 @@ namespace HotelBookingApp.Service
 
     }
 }
+

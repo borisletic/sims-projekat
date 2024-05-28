@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\boris\\sims-projekat\\HotelBookingApp\\HotelBookingApp.csproj": {}
+    "C:\\Users\\boris\\sims-projekat9\\HotelBookingApp\\HotelBookingApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\boris\\sims-projekat\\HotelBookingApp\\HotelBookingApp.csproj": {
+    "C:\\Users\\boris\\sims-projekat9\\HotelBookingApp\\HotelBookingApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\boris\\sims-projekat\\HotelBookingApp\\HotelBookingApp.csproj",
+        "projectUniqueName": "C:\\Users\\boris\\sims-projekat9\\HotelBookingApp\\HotelBookingApp.csproj",
         "projectName": "HotelBookingApp",
-        "projectPath": "C:\\Users\\boris\\sims-projekat\\HotelBookingApp\\HotelBookingApp.csproj",
+        "projectPath": "C:\\Users\\boris\\sims-projekat9\\HotelBookingApp\\HotelBookingApp.csproj",
         "packagesPath": "C:\\Users\\boris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\boris\\sims-projekat\\HotelBookingApp\\obj\\",
+        "outputPath": "C:\\Users\\boris\\sims-projekat9\\HotelBookingApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

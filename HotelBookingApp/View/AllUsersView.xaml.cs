@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -7,12 +8,10 @@ using HotelBookingApp.Model;
 
 
 namespace HotelBookingApp.View
-{ 
+{
     public partial class AllUsersView : Window
     {
-
         public static ObservableCollection<User> Users { get; set; }
-
         private readonly OwnerController ownerController;
         private readonly AdministratorController administratorController;
         private readonly GuestController guestController;
@@ -21,250 +20,151 @@ namespace HotelBookingApp.View
         public string SelectedUser
         {
             get => selectedUser;
-
-            set
-            {
-                selectedUser = value;
-            }
+            set => selectedUser = value;
         }
+
+        public ObservableCollection<string> UserType { get; set; }
+        public User ChosenUser { get; set; }
 
         public AllUsersView()
         {
             InitializeComponent();
+            DataContext = this;
 
-            this.DataContext = this;
-
-            
             ownerController = new OwnerController();
             administratorController = new AdministratorController();
             guestController = new GuestController();
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            Init();
+            InitializeData();
         }
 
-        private void Init()
+        private void InitializeData()
         {
             Users = new ObservableCollection<User>();
+            LoadUsers();
+            UserType = new ObservableCollection<string> { "Guest", "Owner" };
+        }
 
-            foreach (var user in ownerController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            foreach (var user in administratorController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            foreach (var user in guestController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            UserType = new ObservableCollection<string>
-            {
-                "Guest",
-                "Owner"
-            };
+        private void LoadUsers()
+        {
+            Users.Clear();
+            Users.AddRange(ownerController.GetAll());
+            Users.AddRange(administratorController.GetAll());
+            Users.AddRange(guestController.GetAll());
         }
 
         private void CreateOwnerClick(object sender, RoutedEventArgs e)
         {
-            OwnerCreateView owner = new OwnerCreateView();
-
-            owner.Show();
+            new OwnerCreateView().Show();
         }
 
         private void HotelsClick(object sender, RoutedEventArgs e)
         {
-            HotelView hotel = new HotelView(MainWindow.LogInUser);
-
-            hotel.Show();
-
-            this.Close();
+            new HotelView(MainWindow.LogInUser).Show();
+            Close();
         }
-
-        public ObservableCollection<string> UserType { get; set; }
 
         private void FilterClick(object sender, RoutedEventArgs e)
         {
+            Users.Clear();
             if (SelectedUser == "Owner")
-            {
-                Users.Clear();
-
-                foreach (var user in ownerController.GetAll())
-                {
-                    Users.Add(user);
-                }
-            }
+                Users.AddRange(ownerController.GetAll());
             else if (SelectedUser == "Guest")
-            {
-                Users.Clear();
-
-                foreach (var user in guestController.GetAll())
-                {
-                    Users.Add(user);
-                }
-            }
+                Users.AddRange(guestController.GetAll());
         }
 
         private void ClearClick(object sender, RoutedEventArgs e)
         {
-            Users.Clear();
-
-            foreach (var user in ownerController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            foreach (var user in administratorController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            foreach (var user in guestController.GetAll())
-            {
-                Users.Add(user);
-            }
-
-            myTextBox.Text = "";
+            LoadUsers();
+            myTextBox.Text = string.Empty;
         }
 
         private void SortByName(object sender, RoutedEventArgs e)
         {
-            List<User> users = new List<User>();
-
-            users.AddRange(ownerController.GetAll());
-            users.AddRange(administratorController.GetAll());
-            users.AddRange(guestController.GetAll());
-
-            Users.Clear();
-
-            foreach (var user in users.OrderBy(user => user.Name).ToList())
-            {
-                Users.Add(user);
-            }
+            SortUsers(u => u.Name);
         }
 
         private void SortBySurname(object sender, RoutedEventArgs e)
         {
-            List<User> users = new List<User>();
+            SortUsers(u => u.Surname);
+        }
 
+        private void SortByNameReversed(object sender, RoutedEventArgs e)
+        {
+            SortUsers(u => u.Name, true);
+        }
+
+        private void SortBySurnameReversed(object sender, RoutedEventArgs e)
+        {
+            SortUsers(u => u.Surname, true);
+        }
+
+        private void SortUsers(Func<User, string> keySelector, bool descending = false)
+        {
+            var users = new List<User>();
             users.AddRange(ownerController.GetAll());
             users.AddRange(administratorController.GetAll());
             users.AddRange(guestController.GetAll());
 
             Users.Clear();
-
-            foreach (var user in users.OrderBy(user => user.Surname).ToList())
-            {
-                Users.Add(user);
-            }
+            var sortedUsers = descending ? users.OrderByDescending(keySelector) : users.OrderBy(keySelector);
+            Users.AddRange(sortedUsers);
         }
-
-        public User ChosenUser { get; set; }
 
         private void Block(object sender, RoutedEventArgs e)
         {
-            if (ChosenUser == null)
-            {
-                return;
-            }
-
+            if (ChosenUser == null) return;
             if (ChosenUser.Blocked)
             {
                 MessageBox.Show("This user is already blocked.", "User Blocked");
-
                 return;
             }
 
             ChosenUser.Blocked = true;
-
-            if (ChosenUser is Guest)
-            {
-                guestController.Update((Guest)ChosenUser);
-            }
-
-            else if (ChosenUser is Owner)
-            {
-                ownerController.Update((Owner)ChosenUser);
-            }
-
-            else
-            {
-                administratorController.Update((Administrator)ChosenUser);
-            }
-
+            UpdateUser(ChosenUser);
             ClearClick(sender, e);
         }
 
         private void Unblock(object sender, RoutedEventArgs e)
         {
-            if (ChosenUser == null)
-            {
-                return;
-            }
-
+            if (ChosenUser == null) return;
             if (!ChosenUser.Blocked)
             {
                 MessageBox.Show("This user has not been blocked.", "User Unblocked");
-
                 return;
             }
 
             ChosenUser.Blocked = false;
-
-            if (ChosenUser is Guest)
-            {
-                guestController.Update((Guest)ChosenUser);
-            }
-
-            else if (ChosenUser is Owner)
-            {
-                ownerController.Update((Owner)ChosenUser);
-            }
-
-            else
-            {
-                administratorController.Update((Administrator)ChosenUser);
-            }
-
+            UpdateUser(ChosenUser);
             ClearClick(sender, e);
         }
 
-        private void SortByNameReversed(object sender, RoutedEventArgs e)
+        private void UpdateUser(User user)
         {
-            List<User> users = new List<User>();
-
-            users.AddRange(ownerController.GetAll());
-            users.AddRange(administratorController.GetAll());
-            users.AddRange(guestController.GetAll());
-
-            Users.Clear();
-
-            foreach (var user in users.OrderByDescending(user => user.Name).ToList())
+            switch (user)
             {
-                Users.Add(user);
+                case Guest guest:
+                    guestController.Update(guest);
+                    break;
+                case Owner owner:
+                    ownerController.Update(owner);
+                    break;
+                case Administrator admin:
+                    administratorController.Update(admin);
+                    break;
             }
         }
+    }
 
-        private void SortBySurnameReversed(object sender, RoutedEventArgs e)
+    public static class ObservableCollectionExtensions
+    {
+        public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
         {
-            List<User> users = new List<User>();
-
-            users.AddRange(ownerController.GetAll());
-            users.AddRange(administratorController.GetAll());
-            users.AddRange(guestController.GetAll());
-
-            Users.Clear();
-
-            foreach (var user in users.OrderByDescending(user => user.Surname).ToList())
-            {
-                Users.Add(user);
-            }
+            foreach (var item in items)
+                collection.Add(item);
         }
-
     }
 }
+

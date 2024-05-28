@@ -1,4 +1,6 @@
-﻿<Window x:Class="HotelBookingApp.View.ReservationApartmentView"
+﻿<!-- ReservationApartmentView.xaml -->
+
+<Window x:Class="HotelBookingApp.View.ReservationApartmentView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,13 +8,19 @@
         xmlns:local="clr-namespace:HotelBookingApp.View"
         mc:Ignorable="d"
         Title="Reservation Apartment" Height="250" Width="300">
-    
+
+    <!-- Main grid layout -->
     <Grid>
-        
-        <DatePicker x:Name="StartDatePicker" Height="26"  Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,78,0,0" SelectedDate="{Binding StartlDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:dd/MM/yyyy}'}" SelectedDateFormat="Short"></DatePicker>
+
+        <!-- DatePicker for selecting reservation start date -->
+        <DatePicker x:Name="StartDatePicker" Height="26"  Width="128" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,78,0,0" SelectedDate="{Binding StartDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:dd/MM/yyyy}'}" SelectedDateFormat="Short"></DatePicker>
+
+        <!-- TextBlock for displaying instruction -->
         <TextBlock HorizontalAlignment="Center" Margin="0,34,0,0" TextWrapping="Wrap" Text="Select date" VerticalAlignment="Top" Height="20" Width="72"/>
+
+        <!-- Button to make reservation -->
         <Button Click="MakeReservation" Content="Reserve" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
-    
+
     </Grid>
-    
+
 </Window>

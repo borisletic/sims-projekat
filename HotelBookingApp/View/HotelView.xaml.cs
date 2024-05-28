@@ -10,7 +10,6 @@ using HotelBookingApp.Controller;
 
 namespace HotelBookingApp.View
 {
-
     public partial class HotelView : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,33 +19,29 @@ namespace HotelBookingApp.View
 
         public static ObservableCollection<Apartment> Apartments { get; set; }
 
-        public ObservableCollection<String> Hotels { get; set; }
+        public ObservableCollection<string> Hotels { get; set; }
 
-        private String selectedHotel;
-        public String SelectedHotel
+        private string selectedHotel;
+        public string SelectedHotel
         {
             get => selectedHotel;
-
             set
             {
                 selectedHotel = value;
-
                 if (selectedHotel == "Apartments")
                 {
-                    ApartmentFilterCondition afc = new ApartmentFilterCondition();
-
+                    var afc = new ApartmentFilterCondition();
                     afc.Show();
                 }
             }
         }
 
         public User LoggedUser { get; set; }
+
         public HotelView(User user)
         {
             InitializeComponent();
-
-            this.DataContext = this;
-
+            DataContext = this;
             hotelController = new HotelController();
             apartmentController = new ApartmentController();
 
@@ -54,221 +49,165 @@ namespace HotelBookingApp.View
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            Hotels = new ObservableCollection<String>();
-
-            Hotels.Add("Code");
-            Hotels.Add("Name");
-            Hotels.Add("Construction year");
-            Hotels.Add("Number of stars");
-            Hotels.Add("Apartments");
+            Hotels = new ObservableCollection<string>
+            {
+                "Code",
+                "Name",
+                "Construction year",
+                "Number of stars",
+                "Apartments"
+            };
 
             LoggedUser = user;
 
-            if (LoggedUser is Owner)
-            {
-                ReservationButton.Visibility = Visibility.Visible;
-
-                CreateApartmentButton.Visibility = Visibility.Visible;
-
-                ApproveHotelButton.Visibility = Visibility.Visible;
-
-                AddHotelButton.Visibility = Visibility.Collapsed;
-            }
-            else if (LoggedUser is Guest)
-            {
-                ReservationButton.Visibility = Visibility.Collapsed;
-
-                CreateApartmentButton.Visibility = Visibility.Collapsed;
-
-                ApproveHotelButton.Visibility = Visibility.Collapsed;
-
-                AddHotelButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ReservationButton.Visibility = Visibility.Collapsed;
-
-                CreateApartmentButton.Visibility = Visibility.Collapsed;
-
-                ApproveHotelButton.Visibility = Visibility.Collapsed;
-
-                AddHotelButton.Visibility = Visibility.Visible;
-            }
-
-            OnPropertyChanged(nameof(Visibility));
+            UpdateVisibility();
         }
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void UpdateVisibility()
+        {
+            switch (LoggedUser)
+            {
+                case Owner _:
+                    ReservationButton.Visibility = Visibility.Visible;
+                    CreateApartmentButton.Visibility = Visibility.Visible;
+                    ApproveHotelButton.Visibility = Visibility.Visible;
+                    AddHotelButton.Visibility = Visibility.Collapsed;
+                    break;
+                case Guest _:
+                    ReservationButton.Visibility = Visibility.Collapsed;
+                    CreateApartmentButton.Visibility = Visibility.Collapsed;
+                    ApproveHotelButton.Visibility = Visibility.Collapsed;
+                    AddHotelButton.Visibility = Visibility.Collapsed;
+                    break;
+                default:
+                    ReservationButton.Visibility = Visibility.Collapsed;
+                    CreateApartmentButton.Visibility = Visibility.Collapsed;
+                    ApproveHotelButton.Visibility = Visibility.Collapsed;
+                    AddHotelButton.Visibility = Visibility.Visible;
+                    break;
+            }
+            OnPropertyChanged(nameof(Visibility));
+        }
+
         private void SortByStar(object sender, RoutedEventArgs e)
         {
-            var a = apartmentController.GetAll().OrderBy(ap => ap.Hotel.StarsNumber);
-
+            var sortedApartments = apartmentController.GetAll().OrderBy(ap => ap.Hotel.StarsNumber).ToList();
             Apartments.Clear();
-
-            foreach (var apartment in a)
+            foreach (var apartment in sortedApartments)
             {
                 Apartments.Add(apartment);
             }
-
-            OnPropertyChanged(nameof(Apartments));
         }
 
         private void SortByName(object sender, RoutedEventArgs e)
         {
-            var a = apartmentController.GetAll().OrderBy(ap => ap.Hotel.Name);
-
+            var sortedApartments = apartmentController.GetAll().OrderBy(ap => ap.Hotel.Name).ToList();
             Apartments.Clear();
-
-            foreach (var apartment in a)
+            foreach (var apartment in sortedApartments)
             {
                 Apartments.Add(apartment);
             }
-
-            OnPropertyChanged(nameof(Apartments));
         }
 
-        public String text;
-        public String Text
-        {
-            get => text;
-
-            set
-            {
-                text = value;
-            }
-        }
+        public string Text { get; set; }
 
         private void Filter(object sender, RoutedEventArgs e)
         {
-            List<Apartment> a = new List<Apartment>();
+            List<Apartment> filteredApartments = new List<Apartment>();
 
-            if (SelectedHotel == "Code")
+            switch (SelectedHotel)
             {
-                a = apartmentController.GetAll().FindAll(ap => ap.Hotel.Code.ToLower().Contains(Text.ToLower()));
-            }
-
-            else if (SelectedHotel == "Name")
-            {
-                a = apartmentController.GetAll().FindAll(ap => ap.Hotel.Name.ToLower().Contains(Text.ToLower()));
-            }
-
-            else if (SelectedHotel == "Construction year")
-            {
-                a = apartmentController.GetAll().FindAll(ap => ap.Hotel.ConstructionYear.ToString().ToLower().Contains(Text));
-            }
-
-            else if (SelectedHotel == "Stars number")
-            {
-                a = apartmentController.GetAll().FindAll(ap => ap.Hotel.StarsNumber == Convert.ToInt32(Text));
-            }
-
-            else if (SelectedHotel == "Apartments")
-            {
-                ApartmentFilterCondition afc = new ApartmentFilterCondition();
-
-                afc.Show();
+                case "Code":
+                    filteredApartments = apartmentController.GetAll().FindAll(ap => ap.Hotel.Code.ToLower().Contains(Text.ToLower()));
+                    break;
+                case "Name":
+                    filteredApartments = apartmentController.GetAll().FindAll(ap => ap.Hotel.Name.ToLower().Contains(Text.ToLower()));
+                    break;
+                case "Construction year":
+                    filteredApartments = apartmentController.GetAll().FindAll(ap => ap.Hotel.ConstructionYear.ToString().ToLower().Contains(Text));
+                    break;
+                case "Stars number":
+                    filteredApartments = apartmentController.GetAll().FindAll(ap => ap.Hotel.StarsNumber == Convert.ToInt32(Text));
+                    break;
+                case "Apartments":
+                    var afc = new ApartmentFilterCondition();
+                    afc.Show();
+                    break;
             }
 
             Apartments.Clear();
-
-            foreach (var apartment in a)
+            foreach (var apartment in filteredApartments)
             {
                 Apartments.Add(apartment);
             }
-
-            OnPropertyChanged(nameof(Apartments));
         }
+
         private void Clear(object sender, RoutedEventArgs e)
         {
             Apartments.Clear();
-
             foreach (var apartment in apartmentController.GetAll())
             {
                 Apartments.Add(apartment);
             }
-
+            Text = "";
             OnPropertyChanged(nameof(Apartments));
-
             myTextBox.Text = "";
         }
 
-        private Apartment selectedApartment;
-
-        public Apartment SelectedApartment
-        {
-            get => selectedApartment;
-
-            set
-            {
-                selectedApartment = value;
-            }
-        }
+        public Apartment SelectedApartment { get; set; }
 
         private void ReservationApartment(object sender, MouseButtonEventArgs e)
         {
-
             if (LoggedUser is Guest)
             {
-                ReservationApartmentView rav = new ReservationApartmentView(SelectedApartment);
-
+                var rav = new ReservationApartmentView(SelectedApartment);
                 rav.Show();
             }
         }
 
         private void ShowReservations(object sender, RoutedEventArgs e)
         {
-            ReservationsForOwner rfo = new ReservationsForOwner();
-
+            var rfo = new ReservationsForOwner();
             rfo.Show();
         }
 
         private void CreateApartment(object sender, RoutedEventArgs e)
         {
-            ApartmentEnterView aev = new ApartmentEnterView();
-
+            var aev = new ApartmentEnterView();
             aev.Show();
         }
 
-        
-
         private void AddHotel(object sender, RoutedEventArgs e)
         {
-            HotelCreateView hcv = new HotelCreateView();
-
+            var hcv = new HotelCreateView();
             hcv.Show();
         }
 
         private void ApproveHotel(object sender, RoutedEventArgs e)
         {
-            HotelApprovalTableView hatv = new HotelApprovalTableView();
-
-            hatv.Show();
+            var hat = new HotelApprovalTableView();
+            hat.Show();
         }
 
         private void SignOutButton(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
-                 "   Are you sure you want to log out?\n\n",
-                 "Exit",
-                 MessageBoxButton.YesNo);
+            var result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Exit",
+                MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                MainWindow main = new MainWindow();
-
+                var main = new MainWindow();
                 main.Show();
-
-                this.Close();
+                Close();
             }
-
-            else
-            {
-                return;
-            }
-
         }
     }
 }
+

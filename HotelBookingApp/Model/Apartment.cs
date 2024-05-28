@@ -3,8 +3,10 @@
 
 namespace HotelBookingApp.Model
 {
+    // Apartment class implementing ISerializable interface from HotelBookingApp.Serializer namespace
     public class Apartment : HotelBookingApp.Serializer.ISerializable
     {
+        // Private fields to store apartment information
         private int id;
         private string name;
         private string description;
@@ -13,10 +15,10 @@ namespace HotelBookingApp.Model
         private int hotelId;
         private Hotel hotel;
 
+        // Public property for Id with a validation in the setter
         public int Id
         {
             get { return id; }
-
             set
             {
                 if (value != 0)
@@ -26,10 +28,10 @@ namespace HotelBookingApp.Model
             }
         }
 
+        // Public property for HotelId with a validation in the setter
         public int HotelId
         {
             get => hotelId;
-
             set
             {
                 if (value != hotelId)
@@ -38,10 +40,11 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        // Public property for Hotel with a validation in the setter
         public Hotel Hotel
         {
             get => hotel;
-
             set
             {
                 if (value != hotel)
@@ -51,23 +54,23 @@ namespace HotelBookingApp.Model
             }
         }
 
-        
+        // Public property for Name with a validation in the setter
         public string Name
         {
             get { return name; }
-
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     name = value;
                 }
             }
         }
+
+        // Public property for Description with a validation in the setter
         public string Description
         {
             get { return description; }
-
             set
             {
                 if (value != null)
@@ -76,22 +79,24 @@ namespace HotelBookingApp.Model
                 }
             }
         }
+
+        // Public property for RoomNumber with a validation in the setter
         public int RoomNumber
         {
             get { return roomNumber; }
-
             set
             {
-                if(value != 0)
+                if (value != 0)
                 {
                     roomNumber = value;
                 }
             }
         }
+
+        // Public property for MaxGuestNumber with a validation in the setter
         public int MaxGuestNumber
         {
             get { return maxGuestNumber; }
-
             set
             {
                 if (value != 0)
@@ -101,11 +106,12 @@ namespace HotelBookingApp.Model
             }
         }
 
+        // Default constructor
         public Apartment()
         {
-
         }
 
+        // Parameterized constructor to initialize all properties
         public Apartment(int id, string name, string description, int roomNumber, int maxGuestNumber, Hotel hotel)
         {
             Id = id;
@@ -115,7 +121,8 @@ namespace HotelBookingApp.Model
             MaxGuestNumber = maxGuestNumber;
             Hotel = hotel;
         }
-        
+
+        // Method to convert apartment data to a CSV string array
         public virtual string[] ToCSV()
         {
             string[] csvValues =
@@ -130,6 +137,8 @@ namespace HotelBookingApp.Model
 
             return csvValues;
         }
+
+        // Method to populate apartment data from a CSV string array
         public virtual void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -141,3 +150,4 @@ namespace HotelBookingApp.Model
         }
     }
 }
+

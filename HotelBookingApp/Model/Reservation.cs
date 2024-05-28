@@ -5,8 +5,10 @@ using System;
 
 namespace HotelBookingApp.Model
 {
-    public class Reservation: HotelBookingApp.Serializer.ISerializable
+    // Reservation class implementing ISerializable interface from HotelBookingApp.Serializer namespace
+    public class Reservation : HotelBookingApp.Serializer.ISerializable
     {
+        // Public properties to store reservation information
         public int Id { get; set; }
         public int GuestId { get; set; }
         public Guest Guest { get; set; }
@@ -17,14 +19,14 @@ namespace HotelBookingApp.Model
         public DateTime StartDate { get; set; }
         public ReservationStatus Status { get; internal set; }
         public bool Deleted { get; set; }
-
         public string Comment { get; set; }
 
+        // Default constructor
         public Reservation()
         {
-
         }
 
+        // Parameterized constructor to initialize reservation properties
         public Reservation(Guest guest, Owner owner, ReservationStatus status, Apartment apartment, DateTime startDate)
         {
             Status = status;
@@ -36,6 +38,8 @@ namespace HotelBookingApp.Model
             this.Apartment = apartment;
             this.StartDate = startDate;
         }
+
+        // Method to convert reservation data to a CSV string array
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -51,6 +55,8 @@ namespace HotelBookingApp.Model
             };
             return csvValues;
         }
+
+        // Method to populate reservation data from a CSV string array
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
@@ -64,3 +70,4 @@ namespace HotelBookingApp.Model
         }
     }
 }
+

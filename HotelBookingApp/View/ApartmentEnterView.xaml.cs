@@ -7,10 +7,8 @@ using HotelBookingApp.Controller;
 
 namespace HotelBookingApp.View
 {
-   
     public partial class ApartmentEnterView : Window
     {
-
         public static ObservableCollection<string> Hotels { get; set; }
 
         private readonly HotelController hotelController;
@@ -18,64 +16,62 @@ namespace HotelBookingApp.View
 
         public Apartment SelectedApartment { get; set; }
 
-        public ApartmentEnterView()
-        {
-            InitializeComponent();
-
-            this.DataContext = this;
-
-            
-            hotelController = new HotelController();
-            apartmentController = new ApartmentController();
-
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-            List<string> hotels = hotelController.GetAll()
-                .Where(reservation => reservation.OwnerId == MainWindow.LogInUser.Id)
-                .Select(hotel => hotel.Name)
-                .ToList();
-
-            Hotels = new ObservableCollection<string>(hotels);
-
-            Hotels.Clear();
-
-            foreach (var hotel in hotels)
-            {
-                Hotels.Add(hotel);
-            }
-        }
-
         public string ApartmentName { get; set; }
         public string RoomNumber { get; set; }
         public string MaxGuestNumber { get; set; }
         public string Description { get; set; }
         public string SelectedHotel { get; set; }
 
+        public ApartmentEnterView()
+        {
+            InitializeComponent();
+            DataContext = this;
+
+            hotelController = new HotelController();
+            apartmentController = new ApartmentController();
+
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            InitializeHotels();
+        }
+
+        private void InitializeHotels()
+        {
+            Hotels = new ObservableCollection<string>(hotelController.GetAll()
+                .Where(hotel => hotel.OwnerId == MainWindow.LogInUser.Id)
+                .Select(hotel => hotel.Name)
+                .ToList());
+        }
+
         private void CreateApartment(object sender, RoutedEventArgs e)
         {
-            Apartment apart = new Apartment
+            var selectedHotel = hotelController.GetAll().FirstOrDefault(hotel => hotel.Name == SelectedHotel);
+            if (selectedHotel == null)
+            {
+                MessageBox.Show("Selected hotel not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var apartment = new Apartment
             {
                 Name = ApartmentName,
                 RoomNumber = int.Parse(RoomNumber),
                 MaxGuestNumber = int.Parse(MaxGuestNumber),
                 Description = Description,
-                Hotel = hotelController.GetAll().Find(hotel => hotel.Name == SelectedHotel)
+                Hotel = selectedHotel,
+                HotelId = selectedHotel.Id
             };
 
-            apart.HotelId = apart.Hotel.Id;
-
-            apartmentController.Create(apart);
+            apartmentController.Create(apartment);
 
             HotelView.Apartments.Clear();
-
-            foreach (var apartment in apartmentController.GetAll())
+            foreach (var apt in apartmentController.GetAll())
             {
-                HotelView.Apartments.Add(apartment);
+                HotelView.Apartments.Add(apt);
             }
 
-            this.Close();
+            Close();
         }
-
-
     }
 }
+

@@ -1,4 +1,5 @@
-﻿<Window x:Class="HotelBookingApp.View.HotelApprovalTableView"
+﻿<!-- Hotel Approval Table View -->
+<Window x:Class="HotelBookingApp.View.HotelApprovalTableView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,27 +7,39 @@
         xmlns:local="clr-namespace:HotelBookingApp.View"
         mc:Ignorable="d"
         Title="Hotel Approval" Height="450" Width="800">
-    
+
+    <!-- Main Grid Layout -->
     <Grid>
-        
+
+        <!-- DataGrid for displaying hotel information -->
         <DataGrid DockPanel.Dock="Bottom" 
                   ItemsSource="{Binding Path=Hotels, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedHotel}" Height="304" Margin="96,53,97,50"
                   x:Name="MyDataGrid" MouseDoubleClick="OpenSelectedHotel">
-            
+
+            <!-- Define DataGrid columns -->
             <DataGrid.Columns>
-                
+
+                <!-- Code Column -->
                 <DataGridTextColumn  Header="Code" Binding="{Binding Code}" Width="140"></DataGridTextColumn>
+
+                <!-- Name Column -->
                 <DataGridTextColumn  Header="Name" Binding="{Binding Name}" Width="140"></DataGridTextColumn>
+
+                <!-- Construction Year Column -->
                 <DataGridTextColumn  Header="Construction year" Binding="{Binding ConstructionYear}" Width="150"></DataGridTextColumn>
+
+                <!-- Number of Stars Column -->
                 <DataGridTextColumn  Header="Number of stars" Binding="{Binding StarsNumber}" Width="150"></DataGridTextColumn>
-            
+
             </DataGrid.Columns>
-            
+
         </DataGrid>
-        
+
+        <!-- Button to Close the window -->
         <Button Click="CloseClick" Content="Close" HorizontalAlignment="Left" Height="22" Margin="660,24,0,0" VerticalAlignment="Top" Width="43"/>
-    
+
     </Grid>
-    
+
 </Window>
+

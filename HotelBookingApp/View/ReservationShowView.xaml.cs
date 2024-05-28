@@ -10,7 +10,6 @@ using System.Windows;
 
 namespace HotelBookingApp.View
 {
-
     public partial class ReservationShowView : Window, INotifyPropertyChanged
     {
         private Reservation selectedReservation;
@@ -20,10 +19,13 @@ namespace HotelBookingApp.View
         public Reservation SelectedReservation
         {
             get => selectedReservation;
-
             set
             {
-               selectedReservation = value;
+                if (value != selectedReservation)
+                {
+                    selectedReservation = value;
+                    OnPropertyChanged(nameof(SelectedReservation));
+                }
             }
         }
 
@@ -31,22 +33,24 @@ namespace HotelBookingApp.View
         public ObservableCollection<Reservation> Reservations
         {
             get => reservations;
-
             set
             {
                 reservations = value;
+                OnPropertyChanged(nameof(Reservations));
             }
         }
-        public ObservableCollection<String> Filters { get; set; }
+
+        public ObservableCollection<string> Filters { get; set; }
 
         private string selectedFilter;
         public string SelectedFilter
         {
             get => selectedFilter;
-
             set
             {
                 selectedFilter = value;
+                OnPropertyChanged(nameof(SelectedFilter));
+                Filter(null, null); // Automatically apply filter when the selected filter changes
             }
         }
 
@@ -62,16 +66,20 @@ namespace HotelBookingApp.View
 
             reservationController = new ReservationController();
 
-
             Reservations = new ObservableCollection<Reservation>(reservationController.GetAll().FindAll(r => r.Guest.Id == MainWindow.LogInUser.Id));
 
-            Filters = new ObservableCollection<String>();
-
-            Filters.Add("Waiting");
-            Filters.Add("Approved");
-            Filters.Add("Rejected");
+            Filters = new ObservableCollection<string>
+            {
+                "Waiting",
+                "Approved",
+                "Rejected"
+            };
         }
 
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         private void Clear(object sender, RoutedEventArgs e)
         {
@@ -117,12 +125,10 @@ namespace HotelBookingApp.View
             {
                 filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
             }
-
             else if (SelectedFilter == "Approved")
             {
                 filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Approved).ToList();
             }
-
             else if (SelectedFilter == "Rejected")
             {
                 filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Rejected).ToList();

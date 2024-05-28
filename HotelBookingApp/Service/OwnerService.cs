@@ -11,46 +11,54 @@ namespace HotelBookingApp.Service
     {
         private readonly IOwnerRepository ownerRepository;
 
+        // Constructor injection of the owner repository
         public OwnerService()
         {
             ownerRepository = OwnerRepository.GetInstance();
         }
-        
-        
+
+        // Retrieves all owners
         public List<Owner> GetAll()
         {
             return ownerRepository.GetAll();
         }
 
+        // Retrieves an owner by ID
         public Owner Get(int id)
         {
             return ownerRepository.Get(id);
         }
 
+        // Updates an owner's information
         public Owner Update(Owner entity)
         {
             return ownerRepository.Update(entity);
         }
 
+        // Retrieves an owner by email and password
         public Owner GetByEmailAndPassword(string email, string password)
         {
             return GetAll().Find(o => o.Email.Equals(email) && o.Password.Equals(password));
         }
 
+        // Explicit implementation of the Update method from the IService interface
         void IService<Owner>.Update(Owner entity)
         {
             ownerRepository.Update(entity);
         }
 
+        // Creates a new owner
         public void Create(Owner owner)
         {
             ownerRepository.Create(owner);
         }
 
+        // Saves changes made to owners
         public void Save()
         {
             ownerRepository.Save();
         }
     }
 }
+
 

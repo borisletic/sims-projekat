@@ -11,7 +11,6 @@ using System.Windows.Input;
 
 namespace HotelBookingApp.View
 {
-
     public partial class ReservationsForOwner : Window, INotifyPropertyChanged
     {
         private Reservation selectedReservation;
@@ -23,20 +22,15 @@ namespace HotelBookingApp.View
 
         public static ObservableCollection<Apartment> Apartments { get; set; }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public Reservation SelectedReservation
         {
             get => selectedReservation;
-
             set
             {
                 if (value != selectedReservation)
                 {
                     selectedReservation = value;
+                    OnPropertyChanged(nameof(SelectedReservation));
                 }
             }
         }
@@ -45,34 +39,33 @@ namespace HotelBookingApp.View
         public static ObservableCollection<Reservation> Reservations
         {
             get => reservations;
-
             set
             {
                 reservations = value;
             }
         }
 
-        public ObservableCollection<String> Filters { get; set; }
+        public ObservableCollection<string> Filters { get; set; }
 
-        private String selectedFilter;
-        public String SelectedFilter
+        private string selectedFilter;
+        public string SelectedFilter
         {
             get => selectedFilter;
-
             set
             {
                 selectedFilter = value;
+                OnPropertyChanged(nameof(SelectedFilter));
             }
         }
 
-        public String text;
-        public String Text
+        private string text;
+        public string Text
         {
             get => text;
-
             set
             {
                 text = value;
+                OnPropertyChanged(nameof(Text));
             }
         }
 
@@ -87,48 +80,47 @@ namespace HotelBookingApp.View
             reservationController = new ReservationController();
             apartmentController = new ApartmentController();
 
-
             Reservations = new ObservableCollection<Reservation>(reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id));
 
-            Filters = new ObservableCollection<String>();
-
-            Filters.Add("Waiting");
-            Filters.Add("Approved");
+            Filters = new ObservableCollection<string>
+            {
+                "Waiting",
+                "Approved"
+            };
         }
 
-        
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         private void HotelClick(object sender, RoutedEventArgs e)
         {
-            List<Reservation> filteredReservations = reservationController.GetAll().FindAll(ap => ap.Owner.Id == MainWindow.LogInUser.Id && ap.Apartment.Hotel.Name.ToLower().Contains(Text.ToLower()));
+            var filteredReservations = reservationController.GetAll().FindAll(ap => ap.Owner.Id == MainWindow.LogInUser.Id && ap.Apartment.Hotel.Name.ToLower().Contains(Text.ToLower()));
 
             Reservations.Clear();
 
-            foreach (Reservation reservation in filteredReservations)
+            foreach (var reservation in filteredReservations)
             {
                 Reservations.Add(reservation);
             }
         }
-
 
         private void ReservationsClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedReservation.Status != Model.Enums.ReservationStatus.Waiting)
             {
                 MessageBox.Show("Your reservation has been processed", "Notification");
-
                 return;
             }
 
-            ApproveReservationView arv = new ApproveReservationView(SelectedReservation);
-
+            var arv = new ApproveReservationView(SelectedReservation);
             arv.Show();
         }
 
         private void CreateApartment(object sender, RoutedEventArgs e)
         {
-            ApartmentEnterView aew = new ApartmentEnterView();
-
+            var aew = new ApartmentEnterView();
             aew.Show();
         }
 
@@ -136,25 +128,23 @@ namespace HotelBookingApp.View
         {
             Reservations.Clear();
 
-            foreach (Reservation reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
+            foreach (var reservation in reservationController.GetAll().FindAll(r => r.Owner.Id == MainWindow.LogInUser.Id))
             {
                 Reservations.Add(reservation);
             }
 
             OnPropertyChanged(nameof(Reservations));
-
             myTextBox.Text = "";
         }
 
         private void Filter(object sender, RoutedEventArgs e)
         {
-            List<Reservation> filter = new List<Reservation>();
+            List<Reservation> filter;
 
             if (SelectedFilter == "Waiting")
             {
                 filter = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
             }
-
             else
             {
                 filter = reservationController.GetAll().Where(r => r.Owner.Id == MainWindow.LogInUser.Id && r.Status == Model.Enums.ReservationStatus.Approved).ToList();
@@ -169,3 +159,4 @@ namespace HotelBookingApp.View
         }
     }
 }
+

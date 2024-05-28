@@ -12,6 +12,7 @@ namespace HotelBookingApp.Service
         private readonly IHotelRepository hotelRepository;
         private readonly IOwnerRepository ownerRepository;
 
+        // Constructor injection of the hotel and owner repositories
         public HotelService()
         {
             hotelRepository = HotelRepository.GetInstance();
@@ -20,54 +21,65 @@ namespace HotelBookingApp.Service
             BindOwner();
         }
 
+        // Binds owners to hotels
         public void BindOwner()
         {
-            foreach(var a in GetAll())
+            foreach (var hotel in GetAll())
             {
-                a.Owner = ownerRepository.Get(a.OwnerId);
+                // Get the owner associated with each hotel
+                hotel.Owner = ownerRepository.Get(hotel.OwnerId);
             }
         }
 
+        // Retrieves all hotels
         public List<Hotel> GetAll()
         {
             return hotelRepository.GetAll();
         }
 
+        // Retrieves a hotel by ID
         public Hotel Get(int id)
         {
             return hotelRepository.Get(id);
         }
 
+        // Updates a hotel's information
         public void Update(Hotel entity)
         {
             hotelRepository.Update(entity);
         }
-        
+
+        // Creates a new hotel
         public void Create(Hotel hotel)
         {
             hotelRepository.Create(hotel);
         }
 
+        // Retrieves all apartments across all hotels
         public List<Apartment> GetAllApartments()
         {
             var apartments = new List<Apartment>();
 
             foreach (var hotel in GetAll())
             {
+                // Add all apartments of each hotel to the list
                 apartments.AddRange(hotel.Apartments.Values);
             }
 
             return apartments;
         }
 
+        // Deletes a hotel
         public void Delete(Hotel hotel)
         {
             hotelRepository.Delete(hotel);
         }
 
+        // Saves changes made to hotels
         public void Save()
         {
             hotelRepository.Save();
         }
     }
 }
+
