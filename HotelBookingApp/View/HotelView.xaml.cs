@@ -12,15 +12,20 @@ namespace HotelBookingApp.View
 {
     public partial class HotelView : Window, INotifyPropertyChanged
     {
+        // Event for property changed
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Define controllers for hotels and apartments
         private readonly HotelController hotelController;
         private readonly ApartmentController apartmentController;
 
+        // Define collection of apartments
         public static ObservableCollection<Apartment> Apartments { get; set; }
 
+        // Define collection of hotels
         public ObservableCollection<string> Hotels { get; set; }
 
+        // Property for selected hotel
         private string selectedHotel;
         public string SelectedHotel
         {
@@ -28,6 +33,7 @@ namespace HotelBookingApp.View
             set
             {
                 selectedHotel = value;
+                // Open apartment filter condition window if "Apartments" is selected
                 if (selectedHotel == "Apartments")
                 {
                     var afc = new ApartmentFilterCondition();
@@ -36,19 +42,23 @@ namespace HotelBookingApp.View
             }
         }
 
+        // Property for logged-in user
         public User LoggedUser { get; set; }
 
+        // Constructor
         public HotelView(User user)
         {
-            InitializeComponent();
-            DataContext = this;
-            hotelController = new HotelController();
-            apartmentController = new ApartmentController();
+            InitializeComponent(); // Initialize components
+            DataContext = this; // Set data context to this view
+            hotelController = new HotelController(); // Initialize hotel controller
+            apartmentController = new ApartmentController(); // Initialize apartment controller
 
+            // Load apartments from the database that belong to accepted hotels
             Apartments = new ObservableCollection<Apartment>(apartmentController.GetAll().Where(a => a.Hotel.Accepted));
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen; // Set window startup location
 
+            // Initialize collection of hotel filter options
             Hotels = new ObservableCollection<string>
             {
                 "Code",
@@ -58,16 +68,18 @@ namespace HotelBookingApp.View
                 "Apartments"
             };
 
-            LoggedUser = user;
+            LoggedUser = user; // Set logged-in user
 
-            UpdateVisibility();
+            UpdateVisibility(); // Update visibility of UI elements based on user type
         }
 
+        // Method to invoke property changed event
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // Method to update visibility of UI elements based on user type
         private void UpdateVisibility()
         {
             switch (LoggedUser)
@@ -91,9 +103,10 @@ namespace HotelBookingApp.View
                     AddHotelButton.Visibility = Visibility.Visible;
                     break;
             }
-            OnPropertyChanged(nameof(Visibility));
+            OnPropertyChanged(nameof(Visibility)); // Notify property changed
         }
 
+        // Event handler for sorting apartments by star
         private void SortByStar(object sender, RoutedEventArgs e)
         {
             var sortedApartments = apartmentController.GetAll().OrderBy(ap => ap.Hotel.StarsNumber).ToList();
@@ -104,6 +117,7 @@ namespace HotelBookingApp.View
             }
         }
 
+        // Event handler for sorting apartments by name
         private void SortByName(object sender, RoutedEventArgs e)
         {
             var sortedApartments = apartmentController.GetAll().OrderBy(ap => ap.Hotel.Name).ToList();
@@ -114,8 +128,10 @@ namespace HotelBookingApp.View
             }
         }
 
+        // Property for filter text
         public string Text { get; set; }
 
+        // Event handler for filtering apartments
         private void Filter(object sender, RoutedEventArgs e)
         {
             List<Apartment> filteredApartments = new List<Apartment>();
@@ -147,6 +163,7 @@ namespace HotelBookingApp.View
             }
         }
 
+        // Event handler for clearing filters
         private void Clear(object sender, RoutedEventArgs e)
         {
             Apartments.Clear();
@@ -159,8 +176,10 @@ namespace HotelBookingApp.View
             myTextBox.Text = "";
         }
 
+        // Property for selected apartment
         public Apartment SelectedApartment { get; set; }
 
+        // Event handler for apartment reservation
         private void ReservationApartment(object sender, MouseButtonEventArgs e)
         {
             if (LoggedUser is Guest)
@@ -170,30 +189,35 @@ namespace HotelBookingApp.View
             }
         }
 
+        // Event handler for showing reservations (for owner)
         private void ShowReservations(object sender, RoutedEventArgs e)
         {
             var rfo = new ReservationsForOwner();
             rfo.Show();
         }
 
+        // Event handler for creating a new apartment
         private void CreateApartment(object sender, RoutedEventArgs e)
         {
             var aev = new ApartmentEnterView();
             aev.Show();
         }
 
+        // Event handler for adding a new hotel
         private void AddHotel(object sender, RoutedEventArgs e)
         {
             var hcv = new HotelCreateView();
             hcv.Show();
         }
 
+        // Event handler for approving hotels
         private void ApproveHotel(object sender, RoutedEventArgs e)
         {
             var hat = new HotelApprovalTableView();
             hat.Show();
         }
 
+        // Event handler for signing out
         private void SignOutButton(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
@@ -210,4 +234,5 @@ namespace HotelBookingApp.View
         }
     }
 }
+
 

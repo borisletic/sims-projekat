@@ -14,8 +14,10 @@ namespace HotelBookingApp.View
     {
         private Reservation selectedReservation;
 
+        // Event for property changed
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Property for the selected reservation
         public Reservation SelectedReservation
         {
             get => selectedReservation;
@@ -24,11 +26,12 @@ namespace HotelBookingApp.View
                 if (value != selectedReservation)
                 {
                     selectedReservation = value;
-                    OnPropertyChanged(nameof(SelectedReservation));
+                    OnPropertyChanged(nameof(SelectedReservation)); // Notify property changed
                 }
             }
         }
 
+        // Collection of reservations
         private ObservableCollection<Reservation> reservations;
         public ObservableCollection<Reservation> Reservations
         {
@@ -36,12 +39,14 @@ namespace HotelBookingApp.View
             set
             {
                 reservations = value;
-                OnPropertyChanged(nameof(Reservations));
+                OnPropertyChanged(nameof(Reservations)); // Notify property changed
             }
         }
 
+        // Collection of filters
         public ObservableCollection<string> Filters { get; set; }
 
+        // Property for the selected filter
         private string selectedFilter;
         public string SelectedFilter
         {
@@ -49,25 +54,29 @@ namespace HotelBookingApp.View
             set
             {
                 selectedFilter = value;
-                OnPropertyChanged(nameof(SelectedFilter));
+                OnPropertyChanged(nameof(SelectedFilter)); // Notify property changed
                 Filter(null, null); // Automatically apply filter when the selected filter changes
             }
         }
 
+        // Reservation controller
         private readonly ReservationController reservationController;
 
+        // Constructor
         public ReservationShowView()
         {
             InitializeComponent();
 
-            this.DataContext = this;
+            this.DataContext = this; // Set data context to this view
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen; // Set window startup location
 
-            reservationController = new ReservationController();
+            reservationController = new ReservationController(); // Initialize reservation controller
 
+            // Initialize reservations collection with reservations for the current guest
             Reservations = new ObservableCollection<Reservation>(reservationController.GetAll().FindAll(r => r.Guest.Id == MainWindow.LogInUser.Id));
 
+            // Initialize filters collection
             Filters = new ObservableCollection<string>
             {
                 "Waiting",
@@ -76,23 +85,26 @@ namespace HotelBookingApp.View
             };
         }
 
+        // Method to invoke property changed event
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // Event handler for clearing filters
         private void Clear(object sender, RoutedEventArgs e)
         {
-            Reservations.Clear();
+            Reservations.Clear(); // Clear reservations
 
             foreach (var reservation in reservationController.GetAll())
             {
-                Reservations.Add(reservation);
+                Reservations.Add(reservation); // Add all reservations back
             }
 
-            myComboBox.Text = "";
+            myComboBox.Text = ""; // Clear combo box
         }
 
+        // Event handler for canceling reservation
         private void Cancel(object sender, RoutedEventArgs e)
         {
             if (SelectedReservation == null)
@@ -100,27 +112,30 @@ namespace HotelBookingApp.View
                 return;
             }
 
-            SelectedReservation.Status = Model.Enums.ReservationStatus.Canceled;
+            SelectedReservation.Status = Model.Enums.ReservationStatus.Canceled; // Update reservation status to canceled
 
-            reservationController.Update(SelectedReservation);
+            reservationController.Update(SelectedReservation); // Update reservation in the database
 
-            Update();
+            Update(); // Refresh reservations
         }
 
+        // Method to update reservations
         public void Update()
         {
-            Reservations.Clear();
+            Reservations.Clear(); // Clear reservations
 
             foreach (var reservation in reservationController.GetAll().FindAll(r => r.Guest.Id == MainWindow.LogInUser.Id))
             {
-                Reservations.Add(reservation);
+                Reservations.Add(reservation); // Add updated reservations
             }
         }
 
+        // Event handler for applying filter
         private void Filter(object sender, RoutedEventArgs e)
         {
             List<Reservation> filter = new List<Reservation>();
 
+            // Apply filter based on selected filter
             if (SelectedFilter == "Waiting")
             {
                 filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Waiting).ToList();
@@ -134,12 +149,13 @@ namespace HotelBookingApp.View
                 filter = reservationController.GetAll().Where(r => r.Status == Model.Enums.ReservationStatus.Rejected).ToList();
             }
 
-            Reservations.Clear();
+            Reservations.Clear(); // Clear existing reservations
 
             foreach (var reservation in filter)
             {
-                Reservations.Add(reservation);
+                Reservations.Add(reservation); // Add filtered reservations
             }
         }
     }
 }
+
